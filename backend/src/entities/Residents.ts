@@ -16,8 +16,5 @@ export class Residents extends BaseEntity {
 @InputType()
 export class ResidentInput implements Partial<Residents> {
   @Field()
-  id: number;
-
-  @Field()
   prénom: string;
 }

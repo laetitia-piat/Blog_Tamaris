@@ -1,33 +1,32 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { gql, useQuery } from "@apollo/client";
 import PostCard, { PostCardProps } from "../components/PostCard";
 
+const GET_ALL_POSTS = gql`
+  query getAllPosts {
+    getAllPosts {
+      id
+      resident
+      titre
+      photo
+    }
+  }
+`;
 const HomePage = () => {
-  const [posts, setPosts] = useState<PostCardProps[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await axios.get("http://localhost:3000/posts");
-        setPosts(result.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, []);
-
-  return (
-    <section className="Posts-list">
-      {posts.map((post) => (
-        <PostCard
-          id={post.id}
-          titre={post.titre}
-          resident={post.resident}
-          photo={post.photo}
-        />
-      ))}
-    </section>
-  );
+  const { loading, error, data } = useQuery(GET_ALL_POSTS);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
+  if (data)
+    return (
+      <section className="Posts-list">
+        {data.getAllPosts.map((post: PostCardProps) => (
+          <PostCard
+            id={post.id}
+            titre={post.titre}
+            resident={post.resident}
+            photo={post.photo}
+          />
+        ))}
+      </section>
+    );
 };
 export default HomePage;

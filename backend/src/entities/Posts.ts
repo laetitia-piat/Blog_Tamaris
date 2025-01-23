@@ -24,9 +24,6 @@ export class Posts extends BaseEntity {
 @InputType()
 export class PostInput implements Partial<Posts> {
   @Field()
-  id: number;
-
-  @Field()
   resident: string;
 
   @Field()

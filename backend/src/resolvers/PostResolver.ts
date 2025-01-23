@@ -1,4 +1,4 @@
-import { Posts } from "../entities/Posts";
+import { PostInput, Posts } from "../entities/Posts";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
 @Resolver(Posts)
@@ -16,15 +16,11 @@ class PostResolver {
   }
 
   @Mutation(() => Posts)
-  async createNewPost(
-    @Arg("titre") titre: string,
-    @Arg("resident") resident: string,
-    @Arg("photo") photo: string
-  ) {
+  async createNewPost(@Arg("data") newPOstData: PostInput) {
     const newPost = new Posts();
-    newPost.titre = titre;
-    newPost.resident = resident;
-    newPost.photo = photo;
+    newPost.titre = newPOstData.titre;
+    newPost.resident = newPOstData.resident;
+    newPost.photo = newPOstData.photo;
     const result = await newPost.save();
     return result;
   }

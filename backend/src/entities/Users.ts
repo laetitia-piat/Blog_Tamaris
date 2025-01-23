@@ -24,9 +24,6 @@ export class Users extends BaseEntity {
 @InputType()
 export class UserInput implements Partial<Users> {
   @Field()
-  id: number;
-
-  @Field()
   email: string;
 
   @Field()
