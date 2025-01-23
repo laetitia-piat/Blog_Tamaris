@@ -1,4 +1,4 @@
-import { Field, ObjectType } from "type-graphql";
+import { Field, InputType, ObjectType } from "type-graphql";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @ObjectType()
@@ -18,5 +18,20 @@ export class Posts extends BaseEntity {
 
   @Field()
   @Column()
+  photo: string;
+}
+
+@InputType()
+export class PostInput implements Partial<Posts> {
+  @Field()
+  id: number;
+
+  @Field()
+  resident: string;
+
+  @Field()
+  titre: string;
+
+  @Field()
   photo: string;
 }

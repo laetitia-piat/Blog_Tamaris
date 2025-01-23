@@ -1,4 +1,4 @@
-import { Field, ObjectType } from "type-graphql";
+import { Field, InputType, ObjectType } from "type-graphql";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @ObjectType()
@@ -10,5 +10,14 @@ export class Residents extends BaseEntity {
 
   @Field()
   @Column()
+  prénom: string;
+}
+
+@InputType()
+export class ResidentInput implements Partial<Residents> {
+  @Field()
+  id: number;
+
+  @Field()
   prénom: string;
 }
