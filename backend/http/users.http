@@ -1,0 +1,35 @@
+GET http://localhost:3000/users
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "email": "laetitia29@gmail.com",
+    "resident": "Carole"
+  }
+
+###
+GET http://localhost:3000/residents
+
+###
+POST http://localhost:3000/residents
+Content-Type: application/json
+
+{
+    "prénom": "Carole"
+  }
+
+###
+GET http://localhost:3000/posts
+
+
+###
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "titre": "Photo de Vincent!",
+    "resident": "Vincent",
+    "photo":"https://www.bing.com/th?id=OIP.Vq-2In1vPclSQD3kYBqu0gHaHa&w=201&h=185&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
+  }

@@ -1,11 +1,17 @@
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./pages/Home";
+import Layout from "./pages/Layout";
 
-function App() {
-
+const App = () => {
   return (
- 
-     <p>Hello World</p>
-   
-  )
-}
-
-export default App
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+        </Route>
+      </Routes>
+      {/* <ToastContainer /> */}
+    </>
+  );
+};
+export default App;

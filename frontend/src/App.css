@@ -1,1 +1,32 @@
+.hidden {
+  display: none;
+}
 
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+#authentification {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  font-size: 1em;
+  margin: 10px;
+  width: 120px;
+  height: 30px;
+  border-radius: 20px;
+  color: green;
+}
+
+#download {
+  width: 180px;
+  height: 45px;
+  font-size: 1.3em;
+}
+
+p {
+  color: rgb(119, 11, 49);
+}
