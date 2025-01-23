@@ -9,7 +9,7 @@ const Header = () => {
         </a>
         <h1>TAMARIS BLOG</h1>
         <div className="buttonLink">
-          <Link to="/ad/new">
+          <Link to="/post/new">
             <button>Publier une photo</button>
           </Link>
           <button onClick={() => {}}>Logout</button>
