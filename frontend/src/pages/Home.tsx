@@ -1,21 +1,11 @@
-import { gql, useQuery } from "@apollo/client";
 import PostCard, { PostCardProps } from "../components/PostCard";
+import { useGetAllPostsQuery } from "../generated/graphql-types";
 
-const GET_ALL_POSTS = gql`
-  query getAllPosts {
-    getAllPosts {
-      id
-      resident
-      titre
-      photo
-    }
-  }
-`;
 const HomePage = () => {
-  const { loading, error, data } = useQuery(GET_ALL_POSTS);
+  const { loading, error, data } = useGetAllPostsQuery();
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
-  if (data)
+  if (data) {
     return (
       <section className="Posts-list">
         {data.getAllPosts.map((post: PostCardProps) => (
@@ -28,5 +18,6 @@ const HomePage = () => {
         ))}
       </section>
     );
+  }
 };
 export default HomePage;

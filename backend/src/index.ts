@@ -10,6 +10,7 @@ const start = async () => {
 
   const schema = await buildSchema({
     resolvers: [PostResolver],
+    emitSchemaFile: true,
   });
   const server = new ApolloServer({
     schema,
