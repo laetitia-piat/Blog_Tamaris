@@ -1,4 +1,4 @@
-import PostCard, { PostCardProps } from "../components/PostCard";
+import PostCard from "../components/PostCard";
 import { useGetAllPostsQuery } from "../generated/graphql-types";
 
 const HomePage = () => {
@@ -8,7 +8,7 @@ const HomePage = () => {
   if (data) {
     return (
       <section className="Posts-list">
-        {data.getAllPosts.map((post: PostCardProps) => (
+        {data.getAllPosts.map((post) => (
           <PostCard
             id={post.id}
             titre={post.titre}
