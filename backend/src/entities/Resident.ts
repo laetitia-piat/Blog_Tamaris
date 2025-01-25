@@ -3,7 +3,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @ObjectType()
 @Entity()
-export class Residents extends BaseEntity {
+export class Resident extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: number;
@@ -14,7 +14,7 @@ export class Residents extends BaseEntity {
 }
 
 @InputType()
-export class ResidentInput implements Partial<Residents> {
+export class ResidentInput implements Partial<Resident> {
   @Field()
   prénom: string;
 }

@@ -2,9 +2,9 @@ import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 import { dataSource } from "./config/db";
-import { Users } from "./entities/Users";
-import { Posts } from "./entities/Posts";
-import { Residents } from "./entities/Residents";
+import { User } from "./entities/User";
+import { Post } from "./entities/Post";
+import { Resident } from "./entities/Resident";
 
 //const db = new sqlite3.Database("blog_tamaris.sqlite")
 const app = express();
@@ -18,25 +18,25 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-app.get("/users", async (_req, res) => {
-  const users = await Users.find();
-  res.send(users);
+app.get("/user", async (_req, res) => {
+  const user = await User.find();
+  res.send(user);
 });
 
-app.post("/users", async (req, res) => {
-  const newUser = new Users();
+app.post("/user", async (req, res) => {
+  const newUser = new User();
   newUser.email = req.body.email;
   newUser.resident = req.body.resident;
   const result = await newUser.save();
   res.send(result);
 });
 
-app.get("/posts", async (_req, res) => {
-  const posts = await Posts.find();
-  res.send(posts);
+app.get("/post", async (_req, res) => {
+  const post = await Post.find();
+  res.send(post);
 });
-app.post("/posts", async (req, res) => {
-  const newPost = new Posts();
+app.post("/post", async (req, res) => {
+  const newPost = new Post();
   newPost.titre = req.body.titre;
   newPost.resident = req.body.resident;
   newPost.photo = req.body.photo;
@@ -44,12 +44,12 @@ app.post("/posts", async (req, res) => {
   res.send(result);
 });
 
-app.get("/residents", async (_req, res) => {
-  const residents = await Residents.find();
-  res.send(residents);
+app.get("/resident", async (_req, res) => {
+  const resident = await Resident.find();
+  res.send(resident);
 });
-app.post("/residents", async (req, res) => {
-  const newResident = new Residents();
+app.post("/resident", async (req, res) => {
+  const newResident = new Resident();
   newResident.prénom = req.body.prénom;
   const result = await newResident.save();
   res.send(result);

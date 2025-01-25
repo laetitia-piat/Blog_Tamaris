@@ -3,7 +3,7 @@ import { Field, InputType, ObjectType } from "type-graphql";
 
 @ObjectType()
 @Entity()
-export class Users extends BaseEntity {
+export class User extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,7 +22,7 @@ export class Users extends BaseEntity {
 }
 
 @InputType()
-export class UserInput implements Partial<Users> {
+export class UserInput implements Partial<User> {
   @Field()
   email: string;
 

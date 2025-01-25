@@ -3,7 +3,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @ObjectType()
 @Entity()
-export class Posts extends BaseEntity {
+export class Post extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,7 +22,7 @@ export class Posts extends BaseEntity {
 }
 
 @InputType()
-export class PostInput implements Partial<Posts> {
+export class PostInput implements Partial<Post> {
   @Field()
   resident: string;
 

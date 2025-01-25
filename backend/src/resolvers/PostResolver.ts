@@ -1,23 +1,23 @@
-import { PostInput, Posts } from "../entities/Posts";
+import { PostInput, Post } from "../entities/Post";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
-@Resolver(Posts)
+@Resolver(Post)
 class PostResolver {
-  @Query(() => [Posts])
+  @Query(() => [Post])
   async getAllPosts() {
-    const posts = await Posts.find({});
+    const posts = await Post.find({});
     return posts;
   }
 
-  @Query(() => Posts)
+  @Query(() => Post)
   async getPostById(@Arg("id") id: number) {
-    const post = await Posts.findOneByOrFail({ id: id });
+    const post = await Post.findOneByOrFail({ id: id });
     return post;
   }
 
-  @Mutation(() => Posts)
+  @Mutation(() => Post)
   async createNewPost(@Arg("data") newPOstData: PostInput) {
-    const newPost = new Posts();
+    const newPost = new Post();
     newPost.titre = newPOstData.titre;
     newPost.resident = newPOstData.resident;
     newPost.photo = newPOstData.photo;

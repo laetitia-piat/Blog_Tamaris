@@ -1,7 +1,7 @@
-GET http://localhost:3000/users
+GET http://localhost:3000/user
 
 ###
-POST http://localhost:3000/users
+POST http://localhost:3000/user
 Content-Type: application/json
 
 {
@@ -10,10 +10,10 @@ Content-Type: application/json
   }
 
 ###
-GET http://localhost:3000/residents
+GET http://localhost:3000/resident
 
 ###
-POST http://localhost:3000/residents
+POST http://localhost:3000/resident
 Content-Type: application/json
 
 {
@@ -21,11 +21,11 @@ Content-Type: application/json
   }
 
 ###
-GET http://localhost:3000/posts
+GET http://localhost:3000/post
 
 
 ###
-POST http://localhost:3000/posts
+POST http://localhost:3000/post
 Content-Type: application/json
 
 {

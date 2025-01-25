@@ -20,6 +20,8 @@ header h1 {
 .main-menu {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 #logo {
   max-width: 100px;
@@ -32,7 +34,10 @@ header h1 {
   padding: 0 100px;
   box-sizing: border-box;
 }
-
+.buttonLink {
+  display: flex;
+  flex-direction: column;
+}
 .post {
   width: 15%;
   margin: 0 15px;
@@ -62,7 +67,31 @@ header h1 {
   -webkit-transform: scale(2);
   transform: scale(2);
 } */
-
+.PostById {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+.PostById h2 {
+  font-size: 40px;
+  text-align: center;
+}
+.PostById p {
+  text-align: center;
+  font-size: 30px;
+  margin: 20px 0;
+}
+.PostById label {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  text-align: center;
+}
+.PostById label textarea {
+  width: 500px;
+  height: 60px;
+}
 .conteneur-download {
   display: flex;
   justify-content: center;
