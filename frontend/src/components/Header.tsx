@@ -5,7 +5,7 @@ const Header = () => {
     <header className="header">
       <div className="main-menu">
         <a href="/" className="button logo link-button">
-          <img src="../public/src/cropped-AFTC_Logo-190x189.jpg"></img>
+          <img src="../public/images/cropped-AFTC_Logo-190x189.jpg"></img>
         </a>
         <h1>TAMARIS BLOG</h1>
         <div className="buttonLink">

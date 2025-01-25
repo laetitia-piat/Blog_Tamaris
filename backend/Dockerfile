@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
-#RUN apk add curl
+RUN apk add curl
 
 WORKDIR /app
 
