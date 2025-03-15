@@ -7,6 +7,11 @@ export const GET_ALL_POSTS = gql`
       resident
       titre
       photo
+      comments {
+        id
+        content
+        author
+      }
     }
   }
 `;
@@ -18,6 +23,11 @@ export const GET_POST_BY_ID = gql`
       resident
       titre
       photo
+      comments {
+        id
+        content
+        author
+      }
     }
   }
 `;

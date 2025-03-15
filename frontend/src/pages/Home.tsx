@@ -14,6 +14,7 @@ const HomePage = () => {
             titre={post.titre}
             resident={post.resident}
             photo={post.photo}
+            commentaires={post.comments?.length ?? 0}
           />
         ))}
       </section>

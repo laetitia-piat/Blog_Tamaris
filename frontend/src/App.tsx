@@ -3,6 +3,7 @@ import HomePage from "./pages/Home";
 import Layout from "./pages/Layout";
 import NewPostForm from "./pages/NewPostForm";
 import PostDetail from "./pages/PostDetail";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
           <Route path="post/:id" element={<PostDetail />} />
         </Route>
       </Routes>
-      {/* <ToastContainer /> */}
+      <ToastContainer />
     </>
   );
 };

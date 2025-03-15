@@ -1,5 +1,12 @@
 import { Field, InputType, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Comment } from "./Comment";
 
 @ObjectType()
 @Entity()
@@ -19,6 +26,13 @@ export class Post extends BaseEntity {
   @Field()
   @Column()
   photo: string;
+
+  @Field(() => [Comment], { nullable: true })
+  @OneToMany(() => Comment, (comment) => comment.post, {
+    cascade: true,
+    eager: true,
+  })
+  comments: Comment[];
 }
 
 @InputType()

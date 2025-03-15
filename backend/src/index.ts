@@ -3,13 +3,14 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { dataSource } from "./config/db";
 
 import PostResolver from "./resolvers/PostResolver";
+import CommentResolver from "./resolvers/CommentResolver";
 import { buildSchema } from "type-graphql";
 
 const start = async () => {
   await dataSource.initialize();
 
   const schema = await buildSchema({
-    resolvers: [PostResolver],
+    resolvers: [PostResolver, CommentResolver],
     emitSchemaFile: true,
   });
   const server = new ApolloServer({

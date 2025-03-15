@@ -17,9 +17,29 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type Comment = {
+  __typename?: 'Comment';
+  author: Scalars['String']['output'];
+  content: Scalars['String']['output'];
+  id: Scalars['Float']['output'];
+  post?: Maybe<Post>;
+};
+
+export type CommentInput = {
+  author: Scalars['String']['input'];
+  content: Scalars['String']['input'];
+  post: Scalars['ID']['input'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  createNewComment: Comment;
   createNewPost: Post;
+};
+
+
+export type MutationCreateNewCommentArgs = {
+  data: CommentInput;
 };
 
 
@@ -29,6 +49,7 @@ export type MutationCreateNewPostArgs = {
 
 export type Post = {
   __typename?: 'Post';
+  comments?: Maybe<Array<Comment>>;
   id: Scalars['Float']['output'];
   photo: Scalars['String']['output'];
   resident: Scalars['String']['output'];
@@ -43,8 +64,15 @@ export type PostInput = {
 
 export type Query = {
   __typename?: 'Query';
+  getAllComments: Array<Comment>;
   getAllPosts: Array<Post>;
+  getCommentById: Comment;
   getPostById: Post;
+};
+
+
+export type QueryGetCommentByIdArgs = {
+  id: Scalars['Float']['input'];
 };
 
 
@@ -59,17 +87,24 @@ export type CreateNewPostMutationVariables = Exact<{
 
 export type CreateNewPostMutation = { __typename?: 'Mutation', createNewPost: { __typename?: 'Post', id: number, resident: string, titre: string, photo: string } };
 
+export type CreateNewCommentMutationVariables = Exact<{
+  data: CommentInput;
+}>;
+
+
+export type CreateNewCommentMutation = { __typename?: 'Mutation', createNewComment: { __typename?: 'Comment', author: string, content: string, post?: { __typename?: 'Post', id: number } | null } };
+
 export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __typename?: 'Post', id: number, resident: string, titre: string, photo: string }> };
+export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __typename?: 'Post', id: number, resident: string, titre: string, photo: string, comments?: Array<{ __typename?: 'Comment', id: number, content: string, author: string }> | null }> };
 
 export type GetPostByIdQueryVariables = Exact<{
   getPostByIdId: Scalars['Float']['input'];
 }>;
 
 
-export type GetPostByIdQuery = { __typename?: 'Query', getPostById: { __typename?: 'Post', id: number, resident: string, titre: string, photo: string } };
+export type GetPostByIdQuery = { __typename?: 'Query', getPostById: { __typename?: 'Post', id: number, resident: string, titre: string, photo: string, comments?: Array<{ __typename?: 'Comment', id: number, content: string, author: string }> | null } };
 
 
 export const CreateNewPostDocument = gql`
@@ -108,6 +143,43 @@ export function useCreateNewPostMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateNewPostMutationHookResult = ReturnType<typeof useCreateNewPostMutation>;
 export type CreateNewPostMutationResult = Apollo.MutationResult<CreateNewPostMutation>;
 export type CreateNewPostMutationOptions = Apollo.BaseMutationOptions<CreateNewPostMutation, CreateNewPostMutationVariables>;
+export const CreateNewCommentDocument = gql`
+    mutation CreateNewComment($data: CommentInput!) {
+  createNewComment(data: $data) {
+    author
+    content
+    post {
+      id
+    }
+  }
+}
+    `;
+export type CreateNewCommentMutationFn = Apollo.MutationFunction<CreateNewCommentMutation, CreateNewCommentMutationVariables>;
+
+/**
+ * __useCreateNewCommentMutation__
+ *
+ * To run a mutation, you first call `useCreateNewCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNewCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNewCommentMutation, { data, loading, error }] = useCreateNewCommentMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateNewCommentMutation(baseOptions?: Apollo.MutationHookOptions<CreateNewCommentMutation, CreateNewCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateNewCommentMutation, CreateNewCommentMutationVariables>(CreateNewCommentDocument, options);
+      }
+export type CreateNewCommentMutationHookResult = ReturnType<typeof useCreateNewCommentMutation>;
+export type CreateNewCommentMutationResult = Apollo.MutationResult<CreateNewCommentMutation>;
+export type CreateNewCommentMutationOptions = Apollo.BaseMutationOptions<CreateNewCommentMutation, CreateNewCommentMutationVariables>;
 export const GetAllPostsDocument = gql`
     query getAllPosts {
   getAllPosts {
@@ -115,6 +187,11 @@ export const GetAllPostsDocument = gql`
     resident
     titre
     photo
+    comments {
+      id
+      content
+      author
+    }
   }
 }
     `;
@@ -157,6 +234,11 @@ export const GetPostByIdDocument = gql`
     resident
     titre
     photo
+    comments {
+      id
+      content
+      author
+    }
   }
 }
     `;
