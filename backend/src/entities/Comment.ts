@@ -21,7 +21,7 @@ export class Comment extends BaseEntity {
 
   @Field()
   @Column()
-  author: string;
+  auteur: string;
 
   @Field(() => Post)
   @ManyToOne(() => Post, (post) => post.comments)
@@ -34,7 +34,7 @@ export class CommentInput implements Partial<Comment> {
   content: string;
 
   @Field()
-  author: string;
+  auteur: string;
 
   @Field(() => ID)
   post: Post;

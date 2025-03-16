@@ -1,18 +1,22 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useCreateNewPostMutation } from "../generated/graphql-types";
+import {
+  useCreateNewPostMutation,
+  useGetAllResidentsQuery,
+} from "../generated/graphql-types";
+import { GET_ALL_POSTS } from "../graphql/queries";
 
 const NewPostForm = () => {
   const [createNewPost] = useCreateNewPostMutation({
-    //refetchQueries: [allPosts],
+    refetchQueries: [GET_ALL_POSTS],
   });
-
+  const { error, loading, data } = useGetAllResidentsQuery();
   const navigate = useNavigate();
   type Inputs = {
     titre: string;
     photo: string;
-    resident: string;
+    residents: { id: number }[];
   };
 
   const {
@@ -27,28 +31,34 @@ const NewPostForm = () => {
     console.log(data);
     const dataForBackend = {
       ...data,
+      residents: data.residents.map((id) => ({ id: Number(id) })),
     };
-    console.log(data);
+    console.log(dataForBackend);
     await createNewPost({ variables: { data: dataForBackend } });
     toast.success("Succes");
     navigate("/");
   };
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <>
-        <label>
-          Titre de la photo
-          <br />
-          <input
-            className="text-field"
-            {...register("titre", {
-              minLength: { value: 2, message: "Minimum 2 characters" },
-              required: "This field is required",
-            })}
-          />
-        </label>
-        {/* <ErrorMessage
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+  if (data) {
+    return (
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col items-center"
+      >
+        <>
+          <label>
+            Titre de la photo
+            <br />
+            <input
+              className="border-1 border-solid"
+              {...register("titre", {
+                minLength: { value: 2, message: "Minimum 2 characters" },
+                required: "This field is required",
+              })}
+            />
+          </label>
+          {/* <ErrorMessage
           errors={errors}
           name="titre"
           render={({ messages }) =>
@@ -64,31 +74,48 @@ const NewPostForm = () => {
             })
           }
         /> */}
-      </>
-      <label>
-        Prénom du résident
+        </>
+        <label>Choisissez les résidents :</label>
+        <div className="flex flex-col">
+          {data.getAllResidents.map((resident) => (
+            <label key={resident.id}>
+              <input
+                type="checkbox"
+                value={resident.id}
+                {...register("residents")}
+              />
+              {resident.prenom}
+            </label>
+          ))}
+        </div>
+        {/* 
+        <label>Prénom du résident</label>
         <br />
+        <select className="border-1 border-solid" {...register("residents")}>
+          {data.getAllResidents.map((resident) => (
+            <option key={resident.id} value={resident.id}>
+              {resident.prenom}
+            </option>
+          ))}
+        </select> */}
+
+        <label>
+          Photo
+          <br />
+          <input
+            className="border-1 border-solid"
+            {...register("photo", {
+              minLength: { value: 2, message: "Minimum 2 characters" },
+              required: "This field is required",
+            })}
+          />
+        </label>
         <input
-          className="text-field"
-          {...register("resident", {
-            minLength: { value: 2, message: "Minimum 2 characters" },
-            required: "This field is required",
-          })}
+          className="bg-[#4c7d48] w-32 p-2 mt-15 rounded-full text-white"
+          type="submit"
         />
-      </label>
-      <label>
-        Photo
-        <br />
-        <input
-          className="text-field"
-          {...register("photo", {
-            minLength: { value: 2, message: "Minimum 2 characters" },
-            required: "This field is required",
-          })}
-        />
-      </label>
-      <input type="submit" />
-    </form>
-  );
+      </form>
+    );
+  }
 };
 export default NewPostForm;

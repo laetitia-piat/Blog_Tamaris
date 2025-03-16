@@ -4,13 +4,16 @@ export const GET_ALL_POSTS = gql`
   query getAllPosts {
     getAllPosts {
       id
-      resident
+      residents {
+        id
+        prenom
+      }
       titre
       photo
       comments {
         id
         content
-        author
+        auteur
       }
     }
   }
@@ -20,14 +23,25 @@ export const GET_POST_BY_ID = gql`
   query GetPostById($getPostByIdId: Float!) {
     getPostById(id: $getPostByIdId) {
       id
-      resident
+      residents {
+        id
+      }
       titre
       photo
       comments {
         id
         content
-        author
+        auteur
       }
+    }
+  }
+`;
+
+export const GET_ALL_RESIDENTS = gql`
+  query GetAllResidents {
+    getAllResidents {
+      id
+      prenom
     }
   }
 `;

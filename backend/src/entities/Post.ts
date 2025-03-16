@@ -3,10 +3,13 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Comment } from "./Comment";
+import { Resident, ResidentInput } from "./Resident";
 
 @ObjectType()
 @Entity()
@@ -15,9 +18,10 @@ export class Post extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
-  @Column()
-  resident: string;
+  @Field(() => [Resident], { nullable: true })
+  @ManyToMany(() => Resident, (resident) => resident.posts)
+  @JoinTable()
+  residents: Resident[];
 
   @Field()
   @Column()
@@ -37,8 +41,9 @@ export class Post extends BaseEntity {
 
 @InputType()
 export class PostInput implements Partial<Post> {
-  @Field()
-  resident: string;
+  @Field(() => [ResidentInput], { nullable: true })
+  residents: Resident[];
+  id: number;
 
   @Field()
   titre: string;

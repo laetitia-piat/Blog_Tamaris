@@ -1,5 +1,12 @@
 import { Field, InputType, ObjectType } from "type-graphql";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Post } from "./Post";
 
 @ObjectType()
 @Entity()
@@ -10,11 +17,15 @@ export class Resident extends BaseEntity {
 
   @Field()
   @Column()
-  prénom: string;
+  prenom?: string;
+
+  @Field(() => [Post])
+  @ManyToMany(() => Post, (post) => post.residents)
+  posts: Post[];
 }
 
 @InputType()
 export class ResidentInput implements Partial<Resident> {
   @Field()
-  prénom: string;
+  id: number;
 }

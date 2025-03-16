@@ -19,7 +19,7 @@ class CommentResolver {
   async createNewComment(@Arg("data") newCommentData: CommentInput) {
     const newComment = new Comment();
     newComment.content = newCommentData.content;
-    newComment.author = newCommentData.author;
+    newComment.auteur = newCommentData.auteur;
     newComment.post = newCommentData.post;
     const result = await newComment.save();
     return result;

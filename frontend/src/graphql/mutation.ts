@@ -4,7 +4,9 @@ export const CREATE_NEW_POST = gql`
   mutation CreateNewPost($data: PostInput!) {
     createNewPost(data: $data) {
       id
-      resident
+      residents {
+        id
+      }
       titre
       photo
     }
@@ -14,7 +16,7 @@ export const CREATE_NEW_POST = gql`
 export const CREATE_NEW_COMMENT = gql`
   mutation CreateNewComment($data: CommentInput!) {
     createNewComment(data: $data) {
-      author
+      auteur
       content
       post {
         id

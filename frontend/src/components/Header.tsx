@@ -2,19 +2,27 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="header">
-      <div className="main-menu">
-        <a href="/" className="button logo link-button">
-          <img src="../public/images/cropped-AFTC_Logo-190x189.jpg"></img>
-        </a>
-        <h1>TAMARIS BLOG</h1>
-        <div className="buttonLink">
-          <Link to="/post/new">
-            <button>Publier une photo</button>
-          </Link>
-          <button onClick={() => {}}>Logout</button>
+    <header className="mb-15">
+      <div className="flex flex-row justify-between items-center">
+        <div>
+          <a href="/" className="">
+            <img src="../public/images/cropped-AFTC_Logo-190x189.jpg"></img>
+          </a>
+        </div>
+        <div>
+          <h1 className="text-5xl text-[#4c7d48] font-bold">TAMARIS BLOG</h1>
+        </div>
+        <div className="flex flex-col">
+          <button
+            className="bg-[#4c7d48] p-2  rounded-full text-white"
+            onClick={() => {}}
+          >
+            Logout
+          </button>
           <Link to="/login">
-            <button>Login</button>
+            <button className="bg-[#4c7d48] p-2 w-32  rounded-full text-white">
+              Login
+            </button>
           </Link>
         </div>
       </div>

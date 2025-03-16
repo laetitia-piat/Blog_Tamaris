@@ -19,14 +19,14 @@ export type Scalars = {
 
 export type Comment = {
   __typename?: 'Comment';
-  author: Scalars['String']['output'];
+  auteur: Scalars['String']['output'];
   content: Scalars['String']['output'];
   id: Scalars['Float']['output'];
   post: Post;
 };
 
 export type CommentInput = {
-  author: Scalars['String']['input'];
+  auteur: Scalars['String']['input'];
   content: Scalars['String']['input'];
   post: Scalars['ID']['input'];
 };
@@ -52,13 +52,13 @@ export type Post = {
   comments?: Maybe<Array<Comment>>;
   id: Scalars['Float']['output'];
   photo: Scalars['String']['output'];
-  resident: Scalars['String']['output'];
+  residents?: Maybe<Array<Resident>>;
   titre: Scalars['String']['output'];
 };
 
 export type PostInput = {
   photo: Scalars['String']['input'];
-  resident: Scalars['String']['input'];
+  residents?: InputMaybe<Array<ResidentInput>>;
   titre: Scalars['String']['input'];
 };
 
@@ -66,6 +66,7 @@ export type Query = {
   __typename?: 'Query';
   getAllComments: Array<Comment>;
   getAllPosts: Array<Post>;
+  getAllResidents: Array<Resident>;
   getCommentById: Comment;
   getPostById: Post;
 };
@@ -80,38 +81,56 @@ export type QueryGetPostByIdArgs = {
   id: Scalars['Float']['input'];
 };
 
+export type Resident = {
+  __typename?: 'Resident';
+  id: Scalars['Float']['output'];
+  posts: Array<Post>;
+  prenom: Scalars['String']['output'];
+};
+
+export type ResidentInput = {
+  id: Scalars['Float']['input'];
+};
+
 export type CreateNewPostMutationVariables = Exact<{
   data: PostInput;
 }>;
 
 
-export type CreateNewPostMutation = { __typename?: 'Mutation', createNewPost: { __typename?: 'Post', id: number, resident: string, titre: string, photo: string } };
+export type CreateNewPostMutation = { __typename?: 'Mutation', createNewPost: { __typename?: 'Post', id: number, titre: string, photo: string, residents?: Array<{ __typename?: 'Resident', id: number }> | null } };
 
 export type CreateNewCommentMutationVariables = Exact<{
   data: CommentInput;
 }>;
 
 
-export type CreateNewCommentMutation = { __typename?: 'Mutation', createNewComment: { __typename?: 'Comment', author: string, content: string, post: { __typename?: 'Post', id: number } } };
+export type CreateNewCommentMutation = { __typename?: 'Mutation', createNewComment: { __typename?: 'Comment', auteur: string, content: string, post: { __typename?: 'Post', id: number } } };
 
 export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __typename?: 'Post', id: number, resident: string, titre: string, photo: string, comments?: Array<{ __typename?: 'Comment', id: number, content: string, author: string }> | null }> };
+export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __typename?: 'Post', id: number, titre: string, photo: string, residents?: Array<{ __typename?: 'Resident', id: number, prenom: string }> | null, comments?: Array<{ __typename?: 'Comment', id: number, content: string, auteur: string }> | null }> };
 
 export type GetPostByIdQueryVariables = Exact<{
   getPostByIdId: Scalars['Float']['input'];
 }>;
 
 
-export type GetPostByIdQuery = { __typename?: 'Query', getPostById: { __typename?: 'Post', id: number, resident: string, titre: string, photo: string, comments?: Array<{ __typename?: 'Comment', id: number, content: string, author: string }> | null } };
+export type GetPostByIdQuery = { __typename?: 'Query', getPostById: { __typename?: 'Post', id: number, titre: string, photo: string, residents?: Array<{ __typename?: 'Resident', id: number }> | null, comments?: Array<{ __typename?: 'Comment', id: number, content: string, auteur: string }> | null } };
+
+export type GetAllResidentsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Array<{ __typename?: 'Resident', id: number, prenom: string }> };
 
 
 export const CreateNewPostDocument = gql`
     mutation CreateNewPost($data: PostInput!) {
   createNewPost(data: $data) {
     id
-    resident
+    residents {
+      id
+    }
     titre
     photo
   }
@@ -146,7 +165,7 @@ export type CreateNewPostMutationOptions = Apollo.BaseMutationOptions<CreateNewP
 export const CreateNewCommentDocument = gql`
     mutation CreateNewComment($data: CommentInput!) {
   createNewComment(data: $data) {
-    author
+    auteur
     content
     post {
       id
@@ -184,13 +203,16 @@ export const GetAllPostsDocument = gql`
     query getAllPosts {
   getAllPosts {
     id
-    resident
+    residents {
+      id
+      prenom
+    }
     titre
     photo
     comments {
       id
       content
-      author
+      auteur
     }
   }
 }
@@ -231,13 +253,15 @@ export const GetPostByIdDocument = gql`
     query GetPostById($getPostByIdId: Float!) {
   getPostById(id: $getPostByIdId) {
     id
-    resident
+    residents {
+      id
+    }
     titre
     photo
     comments {
       id
       content
-      author
+      auteur
     }
   }
 }
@@ -275,3 +299,43 @@ export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
 export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
 export type GetPostByIdSuspenseQueryHookResult = ReturnType<typeof useGetPostByIdSuspenseQuery>;
 export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+export const GetAllResidentsDocument = gql`
+    query GetAllResidents {
+  getAllResidents {
+    id
+    prenom
+  }
+}
+    `;
+
+/**
+ * __useGetAllResidentsQuery__
+ *
+ * To run a query within a React component, call `useGetAllResidentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllResidentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllResidentsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllResidentsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllResidentsQuery, GetAllResidentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllResidentsQuery, GetAllResidentsQueryVariables>(GetAllResidentsDocument, options);
+      }
+export function useGetAllResidentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllResidentsQuery, GetAllResidentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllResidentsQuery, GetAllResidentsQueryVariables>(GetAllResidentsDocument, options);
+        }
+export function useGetAllResidentsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllResidentsQuery, GetAllResidentsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllResidentsQuery, GetAllResidentsQueryVariables>(GetAllResidentsDocument, options);
+        }
+export type GetAllResidentsQueryHookResult = ReturnType<typeof useGetAllResidentsQuery>;
+export type GetAllResidentsLazyQueryHookResult = ReturnType<typeof useGetAllResidentsLazyQuery>;
+export type GetAllResidentsSuspenseQueryHookResult = ReturnType<typeof useGetAllResidentsSuspenseQuery>;
+export type GetAllResidentsQueryResult = Apollo.QueryResult<GetAllResidentsQuery, GetAllResidentsQueryVariables>;

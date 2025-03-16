@@ -5,7 +5,9 @@ import { Arg, Mutation, Query, Resolver } from "type-graphql";
 class PostResolver {
   @Query(() => [Post])
   async getAllPosts() {
-    const posts = await Post.find({});
+    const posts = await Post.find({
+      relations: ["residents", "comments"],
+    });
     return posts;
   }
 
@@ -17,11 +19,10 @@ class PostResolver {
 
   @Mutation(() => Post)
   async createNewPost(@Arg("data") newPOstData: PostInput) {
-    const newPost = new Post();
-    newPost.titre = newPOstData.titre;
-    newPost.resident = newPOstData.resident;
-    newPost.photo = newPOstData.photo;
-    const result = await newPost.save();
+    const newPostToSave = Post.create({
+      ...newPOstData,
+    });
+    const result = await newPostToSave.save();
     return result;
   }
 }
