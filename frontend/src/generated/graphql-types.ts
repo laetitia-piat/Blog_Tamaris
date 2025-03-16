@@ -22,7 +22,7 @@ export type Comment = {
   author: Scalars['String']['output'];
   content: Scalars['String']['output'];
   id: Scalars['Float']['output'];
-  post?: Maybe<Post>;
+  post: Post;
 };
 
 export type CommentInput = {
@@ -92,7 +92,7 @@ export type CreateNewCommentMutationVariables = Exact<{
 }>;
 
 
-export type CreateNewCommentMutation = { __typename?: 'Mutation', createNewComment: { __typename?: 'Comment', author: string, content: string, post?: { __typename?: 'Post', id: number } | null } };
+export type CreateNewCommentMutation = { __typename?: 'Mutation', createNewComment: { __typename?: 'Comment', author: string, content: string, post: { __typename?: 'Post', id: number } } };
 
 export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
