@@ -11,12 +11,15 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.11.3",
+    "argon2": "^0.41.1",
     "class-validator": "^0.14.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "graphql": "^16.10.0",
     "graphql-request": "^7.1.2",
     "graphql-scalars": "^1.23.0",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7",
@@ -25,7 +28,21 @@
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
+    "@types/cookie": "^0.6.0",
     "@types/cors": "^2.8.17",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.9.0"
+  },
+  "node_modules/@wry/context": {
+    "version": "0.7.4",
+    "resolved": "https://registry.npmjs.org/@wry/context/-/context-0.7.4.tgz",
+    "integrity": "sha512-jmT7Sb4ZQWI5iyu3lobQxICu2nC/vbUhP0vIdd6tHC9PTfenmRmuIFqktc6GH9cgi+ZHnsLWPvfSvc4DrYmKiQ==",
+    "license": "MIT",
+    "dependencies": {
+      "tslib": "^2.3.0"
+    },
+    "engines": {
+      "node": ">=8"
+    }
   }
 }

@@ -1,5 +1,13 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Field, InputType, ObjectType } from "type-graphql";
+import { Resident } from "./Resident";
 
 @ObjectType()
 @Entity()
@@ -16,9 +24,10 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   hashedPassword: string;
 
-  @Field()
-  @Column({ default: "USER", nullable: true })
-  resident: string;
+  @Field(() => Resident)
+  @ManyToOne(() => Resident, (resident) => resident.users, { nullable: true })
+  @JoinColumn()
+  resident: Resident;
 }
 
 @InputType()
@@ -30,5 +39,15 @@ export class UserInput implements Partial<User> {
   password: string;
 
   @Field()
-  resident: string;
+  @Column({ nullable: true })
+  residentId?: number;
+}
+
+@InputType()
+export class LoginUserInput {
+  @Field()
+  email: string;
+
+  @Field()
+  password: string;
 }

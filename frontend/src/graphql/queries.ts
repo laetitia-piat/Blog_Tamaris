@@ -45,3 +45,12 @@ export const GET_ALL_RESIDENTS = gql`
     }
   }
 `;
+
+export const GET_USER_INFOS = gql`
+  query GetUserInfo {
+    getUserInfo {
+      isLoggedIn
+      email
+    }
+  }
+`;

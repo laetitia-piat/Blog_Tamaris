@@ -15,14 +15,14 @@ const PostCard = ({
   id,
   commentaires,
 }: PostCardProps) => (
-  <Link to={`/post/${id}`}>
+  <Link className="max-w-[288px]" to={`/post/${id}`}>
     <div className="flex flex-col m-4">
       <div className="text-center text-xl mb-2 uppercase">{titre}</div>
       <div className="w-64 h-64 overflow-hidden flex justify-center items-center">
         <img className="object-cover w-full h-full" src={photo} />
       </div>
-      <div className="flex flex-col ">
-        <div className="flex justify-evenly mb-5">
+      <div className="flex flex-col flex-wrap">
+        <div className="flex justify-evenly  mb-5">
           {residents.map((resident) => (
             <div
               className="border-1 border-solid border-red-700 rounded-full p-1 mt-2 text-[#4c7d48] font-bold"

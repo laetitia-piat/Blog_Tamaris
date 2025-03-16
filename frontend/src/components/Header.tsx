@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
+import {
+  useGetUserInfoQuery,
+  useLogoutMutation,
+} from "../generated/graphql-types";
+import { GET_USER_INFOS } from "../graphql/queries";
 
 const Header = () => {
+  //const userInfos = useGetUserInfoQuery();
+  //console.log(userInfos.data);
+  const [logout] = useLogoutMutation({
+    refetchQueries: [{ query: GET_USER_INFOS }],
+  });
+  const { error, loading, data } = useGetUserInfoQuery();
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
+  console.log(data);
   return (
     <header className="mb-15">
       <div className="flex flex-row justify-between items-center">
@@ -20,7 +34,12 @@ const Header = () => {
             Logout
           </button>
           <Link to="/login">
-            <button className="bg-[#4c7d48] p-2 w-32  rounded-full text-white">
+            <button
+              className="bg-[#4c7d48] p-2 w-32  rounded-full text-white"
+              onClick={() => {
+                logout();
+              }}
+            >
               Login
             </button>
           </Link>

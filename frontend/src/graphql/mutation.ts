@@ -24,3 +24,21 @@ export const CREATE_NEW_COMMENT = gql`
     }
   }
 `;
+
+export const LOGIN = gql`
+  mutation Login($data: LoginUserInput!) {
+    login(data: $data)
+  }
+`;
+
+export const LOGOUT = gql`
+  mutation Logout {
+    logout
+  }
+`;
+
+export const REGISTER = gql`
+  mutation Register($data: UserInput!) {
+    register(data: $data)
+  }
+`;
