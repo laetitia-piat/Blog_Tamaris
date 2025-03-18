@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { dataSource } from "./config/db";
@@ -44,9 +45,17 @@ const start = async () => {
             process.env.JWT_SECRET_KEY as Secret
           );
           console.log("payload in context", payload);
+          if (payload) {
+            console.log("payload was found and returned to resolver");
+            return {
+              email: payload.email,
+              userRole: payload.userRole,
+              res: res,
+            };
+          }
         }
       }
-      return { req, res };
+      return { res: res };
     },
   });
 

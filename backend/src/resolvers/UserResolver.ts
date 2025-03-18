@@ -29,15 +29,15 @@ class UserResolver {
     if (!resident) {
       throw new Error("Resident not found");
     }
-    const result = User.create({
+    const result = User.save({
       email: newUserData.email,
       hashedPassword: await argon2.hash(newUserData.password),
       resident,
     });
     console.log("result", result);
-    await result.save();
     return "ok";
   }
+
   @Mutation(() => String)
   async login(@Arg("data") loginUserData: LoginUserInput, @Ctx() context: any) {
     let isPasswordOk = false;
@@ -54,7 +54,7 @@ class UserResolver {
         process.env.JWT_SECRET_KEY as Secret
       );
       context.res.setHeader("Set-Cookie", `token=${token}; Secure; HttpOnly`);
-      return "ok";
+      return token;
     } else {
       throw new Error("Incorrect login!");
     }

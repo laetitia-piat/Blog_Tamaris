@@ -6,8 +6,8 @@ import {
 import { GET_USER_INFOS } from "../graphql/queries";
 
 const Header = () => {
-  //const userInfos = useGetUserInfoQuery();
-  //console.log(userInfos.data);
+  const userInfos = useGetUserInfoQuery();
+  console.log(userInfos.data);
   const [logout] = useLogoutMutation({
     refetchQueries: [{ query: GET_USER_INFOS }],
   });
@@ -27,22 +27,25 @@ const Header = () => {
           <h1 className="text-5xl text-[#4c7d48] font-bold">TAMARIS BLOG</h1>
         </div>
         <div className="flex flex-col">
-          <button
-            className="bg-[#4c7d48] p-2  rounded-full text-white"
-            onClick={() => {}}
-          >
-            Logout
-          </button>
-          <Link to="/login">
+          {userInfos.data?.getUserInfo.isLoggedIn ? (
             <button
-              className="bg-[#4c7d48] p-2 w-32  rounded-full text-white"
+              className="bg-[#4c7d48] p-2  rounded-full text-white"
               onClick={() => {
                 logout();
               }}
             >
-              Login
+              Logout
             </button>
-          </Link>
+          ) : (
+            <Link to="/login">
+              <button
+                className="bg-[#4c7d48] p-2 w-32  rounded-full text-white"
+                onClick={() => {}}
+              >
+                Login
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </header>

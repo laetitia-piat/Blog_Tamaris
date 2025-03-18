@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { LoginUserInput, useLoginMutation } from "../generated/graphql-types";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { GET_USER_INFOS } from "../graphql/queries";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [login] = useLoginMutation();
+  const [login] = useLoginMutation({
+    refetchQueries: [{ query: GET_USER_INFOS }],
+  });
 
   const {
     register,
@@ -15,7 +18,8 @@ const LoginForm = () => {
     console.log(data);
     login({
       variables: { data: { email: data.email, password: data.password } },
-      onCompleted: () => {
+      onCompleted: (result) => {
+        localStorage.setItem("token", result.login);
         navigate("/");
       },
       onError: (error) => {
