@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
 import PostCard from "../components/PostCard";
-import { useGetAllPostsQuery } from "../generated/graphql-types";
+import {
+  useGetAllPostsQuery,
+  useGetUserInfoQuery,
+} from "../generated/graphql-types";
 
 const HomePage = () => {
   const { loading, error, data } = useGetAllPostsQuery();
+  const userInfos = useGetUserInfoQuery();
+  console.log(userInfos.data);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
-  if (data) {
-    console.log(data);
+  if (data && userInfos.data?.getUserInfo.isLoggedIn) {
     return (
       <>
         <div className="flex justify-center mb-10">
@@ -29,6 +33,24 @@ const HomePage = () => {
           ))}
         </section>
       </>
+    );
+  } else {
+    return (
+      <div
+        className="flex flex-col items-center justify-center w-screen h-screen bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/les-tamaris.jpg')",
+        }}
+      >
+        <h1 className="text-5xl text-[#4c7d48] font-bold">
+          Bienvenu sur le blog des Tamaris!
+        </h1>
+        <Link to="/login">
+          <button className="bg-[#4c7d48] p-3 w-32 rounded-full text-white text-2xl mt-20">
+            Login
+          </button>
+        </Link>
+      </div>
     );
   }
 };

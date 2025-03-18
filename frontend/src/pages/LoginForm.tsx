@@ -29,20 +29,35 @@ const LoginForm = () => {
   };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Page de connexion</h1>
-        <input placeholder="email" {...register("email", { required: true })} />
+      <form
+        className="flex flex-col w-1/2 m-auto mt-50"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <h1 className="text-center text-3xl text-[#4c7d48] font-bold mb-15">
+          Page de connexion
+        </h1>
+
+        <input
+          className="mb-10 w-1/2 m-auto"
+          placeholder="email"
+          {...register("email", { required: true })}
+        />
         {errors.password && <span>This field is required</span>}
 
         <input
+          className="mb-10 w-1/2 m-auto"
           placeholder="password"
           type="password"
           {...register("password", { required: true })}
         />
 
         {errors.password && <span>This field is required</span>}
-        <input type="submit"></input>
-        <a className="linkSubscribe" href="register">
+        <input
+          className="bg-[#4c7d48] p-2 w-32 m-auto rounded-full text-white"
+          type="submit"
+        ></input>
+
+        <a className="mt-5 text-center" href="register">
           Pas encore inscrit?
         </a>
         {/* <a className="linkSubscribe" href="forgotPassword">

@@ -15,41 +15,32 @@ const Header = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
   console.log(data);
-  return (
-    <header className="mb-15">
-      <div className="flex flex-row justify-between items-center">
-        <div>
-          <a href="/" className="">
-            <img src="../public/images/cropped-AFTC_Logo-190x189.jpg"></img>
-          </a>
-        </div>
-        <div>
-          <h1 className="text-5xl text-[#4c7d48] font-bold">TAMARIS BLOG</h1>
-        </div>
-        <div className="flex flex-col">
-          {userInfos.data?.getUserInfo.isLoggedIn ? (
+  if (userInfos.data?.getUserInfo.isLoggedIn) {
+    return (
+      <header className="mb-15 pr-5 pl-5">
+        <div className="flex flex-row justify-between items-center">
+          <div className="w-1/5">
+            <a href="/" className="">
+              <img src="../public/images/cropped-AFTC_Logo-190x189.jpg"></img>
+            </a>
+          </div>
+          <div className="w-3/5 text-center">
+            <h1 className="text-5xl text-[#4c7d48] font-bold">TAMARIS BLOG</h1>
+          </div>
+          <div className="flex flex-col w-1/5 items-end">
             <button
-              className="bg-[#4c7d48] p-2  rounded-full text-white"
+              className="bg-[#4c7d48] w-1/2 p-3 rounded-full text-white "
               onClick={() => {
                 logout();
               }}
             >
               Logout
             </button>
-          ) : (
-            <Link to="/login">
-              <button
-                className="bg-[#4c7d48] p-2 w-32  rounded-full text-white"
-                onClick={() => {}}
-              >
-                Login
-              </button>
-            </Link>
-          )}
+          </div>
         </div>
-      </div>
-    </header>
-  );
+      </header>
+    );
+  }
 };
 
 export default Header;
