@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import {
   useGetUserInfoQuery,
   useLogoutMutation,
@@ -21,7 +20,7 @@ const Header = () => {
         <div className="flex flex-row justify-between items-center">
           <div className="w-1/5">
             <a href="/" className="">
-              <img src="../public/images/cropped-AFTC_Logo-190x189.jpg"></img>
+              <img src="/images/test2.png"></img>
             </a>
           </div>
           <div className="w-3/5 text-center">
