@@ -16,11 +16,16 @@ const Header = () => {
   console.log(data);
   if (userInfos.data?.getUserInfo.isLoggedIn) {
     return (
-      <header className="mb-15 pr-5 pl-5">
-        <div className="flex flex-row justify-between items-center">
-          <div className="w-1/5">
+      <header
+        className="h-96 pr-5 pl-5 border-b-4 border-[#4c7d48]  w-screen bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/tamaris.png')",
+        }}
+      >
+        <div className=" h-full flex flex-row justify-between items-center">
+          <div className="w-1/5 ">
             <a href="/" className="">
-              <img src="/images/test2.png"></img>
+              <img src="/images/test3.png"></img>
             </a>
           </div>
           <div className="w-3/5 text-center">

@@ -14,7 +14,7 @@ const HomePage = () => {
   if (data && userInfos.data?.getUserInfo.isLoggedIn) {
     return (
       <>
-        <div className="flex justify-center mb-10">
+        <div className="flex justify-center mb-10 mt-15">
           <Link to="/post/new">
             <button className="bg-[#4c7d48] p-2 rounded-full text-white">
               Publier une photo
@@ -23,13 +23,15 @@ const HomePage = () => {
         </div>
         <section className="flex justify-evenly flex-wrap">
           {data.getAllPosts.map((post) => (
-            <PostCard
-              id={post.id}
-              titre={post.titre}
-              residents={post.residents ?? []}
-              photo={post.photo}
-              commentaires={post.comments?.length ?? 0}
-            />
+            <div className="border-2 border-[#4c7d48] mb-10">
+              <PostCard
+                id={post.id}
+                titre={post.titre}
+                residents={post.residents ?? []}
+                photo={post.photo}
+                commentaires={post.comments?.length ?? 0}
+              />
+            </div>
           ))}
         </section>
       </>
@@ -39,7 +41,7 @@ const HomePage = () => {
       <div
         className="flex flex-col items-center justify-center w-screen h-screen bg-cover bg-center"
         style={{
-          backgroundImage: "url('/images/les-tamaris.jpg')",
+          backgroundImage: "url('/images/tamaris.png')",
         }}
       >
         <h1 className="text-5xl text-[#4c7d48] font-bold">
