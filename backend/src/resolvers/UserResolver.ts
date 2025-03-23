@@ -19,6 +19,9 @@ class UserInfo {
 
   @Field({ nullable: true })
   email?: String;
+
+  @Field({ nullable: true })
+  role?: String;
 }
 
 @Resolver(User)
@@ -72,13 +75,17 @@ class UserResolver {
   @Query(() => UserInfo)
   async getUserInfo(@Ctx() context: any) {
     if (context.email) {
-      return { isLoggedIn: true, email: context.email };
+      return { isLoggedIn: true, email: context.email, role: context.role };
     } else {
       return {
         isLoggedIn: false,
       };
     }
   }
-}
 
+  @Query(() => [User])
+  async getAllUsers() {
+    return await User.find({ relations: ["resident"] });
+  }
+}
 export default UserResolver;

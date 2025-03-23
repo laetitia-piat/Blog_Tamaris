@@ -5,7 +5,7 @@ import NewPostForm from "./pages/NewPostForm";
 import PostDetail from "./pages/PostDetail";
 import { ToastContainer } from "react-toastify";
 import LoginForm from "./pages/LoginForm";
-import RegisterForm from "./pages/RegisterForm";
+import Admin from "./pages/Admin";
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
           <Route path="post/new" element={<NewPostForm />} />
           <Route path="post/:id" element={<PostDetail />} />
           <Route path="login" element={<LoginForm />} />
-          <Route path="register" element={<RegisterForm />} />
+          <Route path="admin" element={<Admin />} />
         </Route>
       </Routes>
       <ToastContainer />

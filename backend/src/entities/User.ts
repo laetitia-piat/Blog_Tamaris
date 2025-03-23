@@ -29,6 +29,7 @@ export class User extends BaseEntity {
   @JoinColumn()
   resident: Resident;
 
+  @Field()
   @Column({ default: "USER" })
   role: string;
 }

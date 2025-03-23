@@ -85,6 +85,7 @@ export type Query = {
   getAllComments: Array<Comment>;
   getAllPosts: Array<Post>;
   getAllResidents: Array<Resident>;
+  getAllUsers: Array<User>;
   getCommentById: Comment;
   getPostById: Post;
   getUserInfo: UserInfo;
@@ -118,12 +119,14 @@ export type User = {
   hashedPassword: Scalars['String']['output'];
   id: Scalars['Float']['output'];
   resident: Resident;
+  role: Scalars['String']['output'];
 };
 
 export type UserInfo = {
   __typename?: 'UserInfo';
   email?: Maybe<Scalars['String']['output']>;
   isLoggedIn: Scalars['Boolean']['output'];
+  role?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserInput = {
@@ -182,10 +185,15 @@ export type GetAllResidentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Array<{ __typename?: 'Resident', id: number, prenom: string }> };
 
+export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', email: string, role: string, resident: { __typename?: 'Resident', prenom: string } }> };
+
 export type GetUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUserInfoQuery = { __typename?: 'Query', getUserInfo: { __typename?: 'UserInfo', isLoggedIn: boolean, email?: string | null } };
+export type GetUserInfoQuery = { __typename?: 'Query', getUserInfo: { __typename?: 'UserInfo', isLoggedIn: boolean, email?: string | null, role?: string | null } };
 
 
 export const CreateNewPostDocument = gql`
@@ -495,11 +503,55 @@ export type GetAllResidentsQueryHookResult = ReturnType<typeof useGetAllResident
 export type GetAllResidentsLazyQueryHookResult = ReturnType<typeof useGetAllResidentsLazyQuery>;
 export type GetAllResidentsSuspenseQueryHookResult = ReturnType<typeof useGetAllResidentsSuspenseQuery>;
 export type GetAllResidentsQueryResult = Apollo.QueryResult<GetAllResidentsQuery, GetAllResidentsQueryVariables>;
+export const GetAllUsersDocument = gql`
+    query GetAllUsers {
+  getAllUsers {
+    email
+    role
+    resident {
+      prenom
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllUsersQuery__
+ *
+ * To run a query within a React component, call `useGetAllUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
+      }
+export function useGetAllUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
+        }
+export function useGetAllUsersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
+        }
+export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
+export type GetAllUsersLazyQueryHookResult = ReturnType<typeof useGetAllUsersLazyQuery>;
+export type GetAllUsersSuspenseQueryHookResult = ReturnType<typeof useGetAllUsersSuspenseQuery>;
+export type GetAllUsersQueryResult = Apollo.QueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;
 export const GetUserInfoDocument = gql`
     query GetUserInfo {
   getUserInfo {
     isLoggedIn
     email
+    role
   }
 }
     `;
