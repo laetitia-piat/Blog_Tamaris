@@ -28,6 +28,9 @@ export class User extends BaseEntity {
   @ManyToOne(() => Resident, (resident) => resident.users, { nullable: true })
   @JoinColumn()
   resident: Resident;
+
+  @Column({ default: "USER" })
+  role: string;
 }
 
 @InputType()

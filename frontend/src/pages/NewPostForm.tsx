@@ -44,20 +44,19 @@ const NewPostForm = () => {
     return (
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center"
+        className="w-1/2 m-auto flex flex-col items-center"
       >
         <>
-          <label>
+          <label className="text-xl mt-5 mb-3 text-[#851e1e] font-bold">
             Titre de la photo
-            <br />
-            <input
-              className="border-1 border-solid"
-              {...register("titre", {
-                minLength: { value: 2, message: "Minimum 2 characters" },
-                required: "This field is required",
-              })}
-            />
           </label>
+          <input
+            className="border-1 border-solid h-10"
+            {...register("titre", {
+              minLength: { value: 2, message: "Minimum 2 characters" },
+              required: "This field is required",
+            })}
+          />
           {/* <ErrorMessage
           errors={errors}
           name="titre"
@@ -75,18 +74,22 @@ const NewPostForm = () => {
           }
         /> */}
         </>
-        <label>Choisissez les résidents :</label>
-        <div className="flex flex-col">
-          {data.getAllResidents.map((resident) => (
-            <label key={resident.id}>
-              <input
-                type="checkbox"
-                value={resident.id}
-                {...register("residents")}
-              />
-              {resident.prenom}
-            </label>
-          ))}
+        <div className="w-1/2 mt-5 text-center flex flex-col">
+          <label className="text-xl mt-5 mb-3 text-[#851e1e] font-bold">
+            Choisissez les résidents :
+          </label>
+          <div className="flex flex-wrap justify-center ">
+            {data.getAllResidents.map((resident) => (
+              <label className="pr-2 pl-2" key={resident.id}>
+                <input
+                  type="checkbox"
+                  value={resident.id}
+                  {...register("residents")}
+                />
+                {resident.prenom}
+              </label>
+            ))}
+          </div>
         </div>
         {/* 
         <label>Prénom du résident</label>
@@ -99,17 +102,17 @@ const NewPostForm = () => {
           ))}
         </select> */}
 
-        <label>
+        <label className="text-xl mt-5 mb-3 text-center text-[#851e1e] font-bold">
           Photo
-          <br />
-          <input
-            className="border-1 border-solid"
-            {...register("photo", {
-              minLength: { value: 2, message: "Minimum 2 characters" },
-              required: "This field is required",
-            })}
-          />
         </label>
+
+        <input
+          className="border-1 border-solid h-10"
+          {...register("photo", {
+            minLength: { value: 2, message: "Minimum 2 characters" },
+            required: "This field is required",
+          })}
+        />
         <input
           className="bg-[#4c7d48] w-32 p-2 mt-15 rounded-full text-white"
           type="submit"

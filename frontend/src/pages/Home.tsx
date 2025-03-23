@@ -23,7 +23,7 @@ const HomePage = () => {
         </div>
         <section className="flex justify-evenly flex-wrap">
           {data.getAllPosts.map((post) => (
-            <div className="border-2 border-[#4c7d48] mb-10">
+            <div className="border-2 border-[#4c7d48] mb-10 max-w-[288px] ">
               <PostCard
                 id={post.id}
                 titre={post.titre}
@@ -44,7 +44,7 @@ const HomePage = () => {
           backgroundImage: "url('/images/tamaris.png')",
         }}
       >
-        <h1 className="text-5xl text-[#4c7d48] font-bold">
+        <h1 className="text-6xl text-[#3c5c39] font-bold">
           Bienvenu sur le blog des Tamaris!
         </h1>
         <Link to="/login">
