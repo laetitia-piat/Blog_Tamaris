@@ -22,7 +22,7 @@ const NewPostForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {},
   } = useForm<Inputs>({
     criteriaMode: "all",
   });

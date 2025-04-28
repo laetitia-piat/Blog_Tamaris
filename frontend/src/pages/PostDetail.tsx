@@ -20,7 +20,7 @@ const PostDetail = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {},
   } = useForm<CommentInput>({
     criteriaMode: "all",
   });
