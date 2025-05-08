@@ -30,14 +30,14 @@ services:
       db:
         condition: service_healthy
   frontend:
-    build: ./frontend
-    volumes:
-      - ./frontend/src:/app/src
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
     depends_on:
       backend:
         condition: service_healthy
     healthcheck:
-      test: "curl --fail --request GET --url 'http://localhost:5173' || exit 1"
+      test: "curl --fail --request GET --url 'http://localhost:80' || exit 1"
       interval: 1s
       timeout: 2s
       retries: 100
