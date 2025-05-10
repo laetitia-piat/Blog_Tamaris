@@ -14,7 +14,7 @@ const PostDetail = () => {
     variables: { getPostByIdId: parseInt(id) },
   });
   const [createNewComment] = useCreateNewCommentMutation({
-    //refetchQueries: [allPosts],
+    refetchQueries: [allPosts],
   });
 
   const {
