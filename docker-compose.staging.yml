@@ -14,9 +14,8 @@ services:
       db:
         condition: service_healthy
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.prod
+    image: laetitia29/backend:latest
+    pull_policy: always
     healthcheck:
       test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:4000'' --data ''{"query":"query { __typename }"}'' || exit 1'
       interval: 1s
@@ -28,9 +27,8 @@ services:
       db:
         condition: service_healthy
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.prod
+    image: laetitia29/frontend:latest
+    pull_policy: always
     depends_on:
       backend:
         condition: service_healthy
@@ -48,16 +46,12 @@ services:
         condition: service_healthy
       frontend:
         condition: service_healthy
-      img:
-        condition: service_healthy
     ports:
-      - 7000:80
+      - 7001:80
   img:
-    build: ./img
+    image: laetitia29/img:latest
     healthcheck:
       test: "curl --fail --request GET --url 'http://localhost:4000' || exit 1"
       interval: 1s
       timeout: 2s
       retries: 100
-    volumes:
-      - ./img/uploads:/app/uploads
