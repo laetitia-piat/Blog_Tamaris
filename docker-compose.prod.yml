@@ -39,6 +39,8 @@ services:
       retries: 100
   api_gateway:
     image: nginx
+    volumes:
+      - ./nginx/api_gateway.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       backend:
         condition: service_healthy
