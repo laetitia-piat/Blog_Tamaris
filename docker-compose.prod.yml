@@ -33,7 +33,7 @@ services:
       backend:
         condition: service_healthy
     healthcheck:
-      test: "curl --fail --request GET --url 'http://localhost:5173' || exit 1"
+      test: "curl --fail http://localhost || exit 1"
       interval: 1s
       timeout: 2s
       retries: 100
@@ -49,6 +49,7 @@ services:
     ports:
       - 7000:80
   img:
+    image: laetitia29/img:latest
     healthcheck:
       test: "curl --fail --request GET --url 'http://localhost:4000' || exit 1"
       interval: 1s
