@@ -1,4 +1,5 @@
 FROM node:lts-alpine AS builder
+
 WORKDIR /app
 
 COPY package.json package.json
@@ -13,18 +14,18 @@ COPY tsconfig.json tsconfig.json
 COPY tsconfig.node.json tsconfig.node.json
 COPY vite.config.ts vite.config.ts
 
-RUN npm start && npm run build
+RUN npm run build
 
 # Bundle static assets with nginx
 FROM nginx:1.28.0-alpine AS runner
 
 RUN apk --no-cache add curl
 
+WORKDIR /app
+
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
