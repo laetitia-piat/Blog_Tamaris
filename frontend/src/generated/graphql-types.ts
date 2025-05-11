@@ -82,6 +82,7 @@ export type PostInput = {
 
 export type Query = {
   __typename?: 'Query';
+  getAllComments: Array<Comment>;
   getAllPosts: Array<Post>;
   getAllResidents: Array<Resident>;
   getAllUsers: Array<User>;
