@@ -28,14 +28,20 @@ class UserInfo {
 class UserResolver {
   @Mutation(() => String)
   async register(@Arg("data") newUserData: UserInput) {
-    const resident = await Resident.findOneBy({ id: newUserData.residentId });
-    if (!resident) {
-      throw new Error("Resident not found");
+    let resident: Resident | undefined;
+
+    if (newUserData.residentId) {
+      resident =
+        (await Resident.findOneBy({ id: newUserData.residentId })) || undefined;
+      if (!resident) {
+        throw new Error("Resident not found");
+      }
     }
-    const result = User.save({
+    const result = await User.save({
       email: newUserData.email,
       hashedPassword: await argon2.hash(newUserData.password),
       resident,
+      role: newUserData.role,
     });
     console.log("result", result);
     return "ok";
