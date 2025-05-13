@@ -1,5 +1,4 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
@@ -8,8 +7,6 @@ import {
 } from "../generated/graphql-types";
 import { GET_ALL_POSTS } from "../graphql/queries";
 import axios from "axios";
-import { Fragment } from "react/jsx-runtime";
-
 const NewPostForm = () => {
   const [createNewPost] = useCreateNewPostMutation({
     refetchQueries: [GET_ALL_POSTS],
