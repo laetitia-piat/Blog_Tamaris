@@ -45,7 +45,7 @@ const HomePage = () => {
         }}
       >
         <h1 className="text-6xl text-[#3c5c39] font-bold">
-          Bienvenu sur le blog des Tamaris!
+          Bienvenu sur le blog des Tamaris!!
         </h1>
         <Link to="/login">
           <button className="bg-[#4c7d48] p-3 w-32 rounded-full text-white text-2xl mt-20">

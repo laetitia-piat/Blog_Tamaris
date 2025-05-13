@@ -133,6 +133,7 @@ export type UserInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
   residentId: Scalars['Float']['input'];
+  role: Scalars['String']['input'];
 };
 
 export type CreateNewPostMutationVariables = Exact<{

@@ -6,7 +6,7 @@ import {
   useGetAllResidentsQuery,
 } from "../generated/graphql-types";
 import { GET_ALL_POSTS } from "../graphql/queries";
-
+import axios from "axios";
 const NewPostForm = () => {
   const [createNewPost] = useCreateNewPostMutation({
     refetchQueries: [GET_ALL_POSTS],
@@ -22,6 +22,7 @@ const NewPostForm = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: {},
   } = useForm<Inputs>({
     criteriaMode: "all",
@@ -30,12 +31,13 @@ const NewPostForm = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
     const dataForBackend = {
-      ...data,
+      titre: data.titre,
+      photo: data.photo,
       residents: data.residents.map((id) => ({ id: Number(id) })),
     };
     console.log(dataForBackend);
     await createNewPost({ variables: { data: dataForBackend } });
-    toast.success("Succes");
+    toast.success("Succès !");
     navigate("/");
   };
   if (loading) return <p>Loading...</p>;
@@ -57,22 +59,6 @@ const NewPostForm = () => {
               required: "This field is required",
             })}
           />
-          {/* <ErrorMessage
-          errors={errors}
-          name="titre"
-          render={({ messages }) =>
-            messages &&
-            Object.entries(messages).map(([type, message]) => {
-              console.log(message);
-              return (
-                <Fragment key={type}>
-                  <br />
-                  <span className="error-message">{message}</span>
-                </Fragment>
-              );
-            })
-          }
-        /> */}
         </>
         <div className="w-1/2 mt-5 text-center flex flex-col">
           <label className="text-xl mt-5 mb-3 text-[#851e1e] font-bold">
@@ -91,27 +77,30 @@ const NewPostForm = () => {
             ))}
           </div>
         </div>
-        {/* 
-        <label>Prénom du résident</label>
-        <br />
-        <select className="border-1 border-solid" {...register("residents")}>
-          {data.getAllResidents.map((resident) => (
-            <option key={resident.id} value={resident.id}>
-              {resident.prenom}
-            </option>
-          ))}
-        </select> */}
 
         <label className="text-xl mt-5 mb-3 text-center text-[#851e1e] font-bold">
           Photo
         </label>
-
         <input
-          className="border-1 border-solid h-10"
-          {...register("photo", {
-            minLength: { value: 2, message: "Minimum 2 characters" },
-            required: "This field is required",
-          })}
+          id="file"
+          type="file"
+          className="text-field"
+          onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+            if (e.target.files) {
+              const formData = new FormData();
+              formData.append("file", e.target.files[0]);
+              try {
+                const result = await axios.post("/img", formData);
+                console.log("result data", result.data);
+                setValue(
+                  "photo",
+                  (result.data as { filename: string }).filename
+                );
+              } catch (error) {
+                console.error(error);
+              }
+            }
+          }}
         />
         <input
           className="bg-[#4c7d48] w-32 p-2 mt-15 rounded-full text-white"
