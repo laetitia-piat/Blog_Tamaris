@@ -91,27 +91,15 @@ const NewPostForm = () => {
             ))}
           </div>
         </div>
-        {/* 
-        <label>Prénom du résident</label>
-        <br />
-        <select className="border-1 border-solid" {...register("residents")}>
-          {data.getAllResidents.map((resident) => (
-            <option key={resident.id} value={resident.id}>
-              {resident.prenom}
-            </option>
-          ))}
-        </select> */}
 
         <label className="text-xl mt-5 mb-3 text-center text-[#851e1e] font-bold">
           Photo
         </label>
-
         <input
+          type="file"
+          accept="image/*"
           className="border-1 border-solid h-10"
-          {...register("photo", {
-            minLength: { value: 2, message: "Minimum 2 characters" },
-            required: "This field is required",
-          })}
+          {...register("photo")}
         />
         <input
           className="bg-[#4c7d48] w-32 p-2 mt-15 rounded-full text-white"
