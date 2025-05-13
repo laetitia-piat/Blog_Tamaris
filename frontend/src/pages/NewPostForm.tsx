@@ -6,6 +6,7 @@ import {
   useGetAllResidentsQuery,
 } from "../generated/graphql-types";
 import { GET_ALL_POSTS } from "../graphql/queries";
+import axios from "axios";
 
 const NewPostForm = () => {
   const [createNewPost] = useCreateNewPostMutation({
@@ -22,6 +23,7 @@ const NewPostForm = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: {},
   } = useForm<Inputs>({
     criteriaMode: "all",
@@ -30,12 +32,13 @@ const NewPostForm = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
     const dataForBackend = {
-      ...data,
+      titre: data.titre,
+      photo: data.photo,
       residents: data.residents.map((id) => ({ id: Number(id) })),
     };
     console.log(dataForBackend);
     await createNewPost({ variables: { data: dataForBackend } });
-    toast.success("Succes");
+    toast.success("Succès !");
     navigate("/");
   };
   if (loading) return <p>Loading...</p>;
@@ -96,11 +99,32 @@ const NewPostForm = () => {
           Photo
         </label>
         <input
+          id="file"
+          type="file"
+          className="text-field"
+          onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+            if (e.target.files) {
+              const formData = new FormData();
+              formData.append("file", e.target.files[0]);
+              try {
+                const result = await axios.post("/img", formData);
+                console.log("result data", result.data);
+                setValue(
+                  "photo",
+                  (result.data as { filename: string }).filename
+                );
+              } catch (error) {
+                console.error(error);
+              }
+            }
+          }}
+        />
+        {/* <input
           type="file"
           accept="image/*"
           className="border-1 border-solid h-10"
           {...register("photo")}
-        />
+        /> */}
         <input
           className="bg-[#4c7d48] w-32 p-2 mt-15 rounded-full text-white"
           type="submit"
