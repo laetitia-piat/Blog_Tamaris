@@ -29,21 +29,21 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          context: "{{defaultContext}}:frontend"
+          context: ./frontend
           file: Dockerfile.prod
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest, ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ env.COMMIT_SHORT_SHA }}
       - name: Build and push backend
         uses: docker/build-push-action@v4
         with:
           push: true
-          context: "{{defaultContext}}:backend"
+          context: ./backend
           file: Dockerfile.prod
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest, ${{ secrets.DOCKERHUB_USERNAME }}/backend:${{ env.COMMIT_SHORT_SHA }}
       - name: Build and push image service
         uses: docker/build-push-action@v4
         with:
           push: true
-          context: "{{defaultContext}}:img"
+          context: ./img
           file: Dockerfile.prod
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/img:latest, ${{ secrets.DOCKERHUB_USERNAME }}/img:${{ env.COMMIT_SHORT_SHA }}
       # - name: Send webhook to vps
