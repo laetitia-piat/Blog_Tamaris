@@ -1,4 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
@@ -7,6 +8,7 @@ import {
 } from "../generated/graphql-types";
 import { GET_ALL_POSTS } from "../graphql/queries";
 import axios from "axios";
+import { Fragment } from "react/jsx-runtime";
 
 const NewPostForm = () => {
   const [createNewPost] = useCreateNewPostMutation({
@@ -60,22 +62,6 @@ const NewPostForm = () => {
               required: "This field is required",
             })}
           />
-          {/* <ErrorMessage
-          errors={errors}
-          name="titre"
-          render={({ messages }) =>
-            messages &&
-            Object.entries(messages).map(([type, message]) => {
-              console.log(message);
-              return (
-                <Fragment key={type}>
-                  <br />
-                  <span className="error-message">{message}</span>
-                </Fragment>
-              );
-            })
-          }
-        /> */}
         </>
         <div className="w-1/2 mt-5 text-center flex flex-col">
           <label className="text-xl mt-5 mb-3 text-[#851e1e] font-bold">
