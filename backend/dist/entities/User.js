@@ -62,6 +62,11 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Number)
 ], UserInput.prototype, "residentId", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.Column)({ default: "USER" }),
+    __metadata("design:type", String)
+], UserInput.prototype, "role", void 0);
 exports.UserInput = UserInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], UserInput);

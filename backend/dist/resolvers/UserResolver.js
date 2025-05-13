@@ -72,14 +72,19 @@ UserInfo = __decorate([
 ], UserInfo);
 let UserResolver = class UserResolver {
     async register(newUserData) {
-        const resident = await Resident_1.Resident.findOneBy({ id: newUserData.residentId });
-        if (!resident) {
-            throw new Error("Resident not found");
+        let resident;
+        if (newUserData.residentId) {
+            resident =
+                (await Resident_1.Resident.findOneBy({ id: newUserData.residentId })) || undefined;
+            if (!resident) {
+                throw new Error("Resident not found");
+            }
         }
-        const result = User_1.User.save({
+        const result = await User_1.User.save({
             email: newUserData.email,
             hashedPassword: await argon2.hash(newUserData.password),
             resident,
+            role: newUserData.role,
         });
         console.log("result", result);
         return "ok";
