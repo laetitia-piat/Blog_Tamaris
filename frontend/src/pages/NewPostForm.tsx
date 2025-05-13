@@ -119,12 +119,6 @@ const NewPostForm = () => {
             }
           }}
         />
-        {/* <input
-          type="file"
-          accept="image/*"
-          className="border-1 border-solid h-10"
-          {...register("photo")}
-        /> */}
         <input
           className="bg-[#4c7d48] w-32 p-2 mt-15 rounded-full text-white"
           type="submit"
