@@ -17,7 +17,7 @@ const Header = () => {
   if (userInfos.data?.getUserInfo.isLoggedIn) {
     return (
       <header
-        className="h-96 pr-5 pl-5 border-b-4 border-[#4c7d48]  w-screen bg-cover bg-center"
+        className="h-64 pr-5 pl-5 border-b-4 border-[#4c7d48]  w-screen bg-cover bg-center"
         style={{
           backgroundImage: "url('/images/tamaris.png')",
         }}
