@@ -3,8 +3,6 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: example
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
       interval: 1s
@@ -16,9 +14,8 @@ services:
       db:
         condition: service_healthy
   backend:
-    build: ./backend
-    volumes:
-      - ./backend/src:/app/src
+    image: laetitia29/backend:latest
+    pull_policy: always
     healthcheck:
       test: 'curl --fail --request POST --header ''content-type: application/json'' --url ''http://localhost:4000'' --data ''{"query":"query { __typename }"}'' || exit 1'
       interval: 1s
@@ -30,9 +27,8 @@ services:
       db:
         condition: service_healthy
   frontend:
-    build: ./frontend
-    volumes:
-      - ./frontend/src:/app/src
+    image: laetitia29/frontend:latest
+    pull_policy: always
     depends_on:
       backend:
         condition: service_healthy
@@ -50,18 +46,12 @@ services:
         condition: service_healthy
       frontend:
         condition: service_healthy
-      img:
-        condition: service_healthy
     ports:
-      - 7000:80
+      - 7001:80
   img:
-    build: ./img
+    image: laetitia29/img:latest
     healthcheck:
       test: "curl --fail --request GET --url 'http://localhost:4000' || exit 1"
       interval: 1s
       timeout: 2s
       retries: 100
-    volumes:
-      - ./img/uploads:/app/uploads
-volumes:
-  postgres_data:

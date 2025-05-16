@@ -45,6 +45,10 @@ export class UserInput implements Partial<User> {
   @Field()
   @Column({ nullable: true })
   residentId?: number;
+
+  @Field()
+  @Column({ default: "USER" })
+  role: string;
 }
 
 @InputType()
