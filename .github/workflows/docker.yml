@@ -46,5 +46,5 @@ jobs:
           context: "{{defaultContext}}:img"
           file: Dockerfile.prod
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/img:latest, ${{ secrets.DOCKERHUB_USERNAME }}/img:${{ env.COMMIT_SHORT_SHA }}
-      # - name: Send webhook to vps
-      #   run: curl https://webhook.blog-tamaris.fr/hooks/update
+      - name: Send webhook to vps
+        run: curl https://staging.blog-tamaris.fr/webhook-staging

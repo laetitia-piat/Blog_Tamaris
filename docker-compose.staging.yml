@@ -3,6 +3,8 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: example
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
       interval: 1s
@@ -45,6 +47,8 @@ services:
       backend:
         condition: service_healthy
       frontend:
+        condition: service_healthy
+      img:
         condition: service_healthy
     ports:
       - 7001:80
