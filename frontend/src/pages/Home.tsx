@@ -72,22 +72,22 @@ const HomePage = () => {
           backgroundImage: "url('/images/tamaris_background.jpg')",
         }}
       >
-        <h1 className="text-xl lg:text-6xl text-[#3c5c39] font-bold lg:pt-40">
+        <h1 className="text-4xl lg:text-6xl text-[#3c5c39] font-bold pt-20 lg:pt-40">
           BLOG DES TAMARIS
         </h1>
         <form
-          className="flex flex-col bg-[#f7f0e1] rounded-lg w-1/2 lg:w-1/3 m-auto lg:mt-30 pt-10"
+          className="flex flex-col bg-[#f7f0e1] rounded-lg w-[75%] lg:w-1/3 m-auto lg:mt-30 pt-10"
           onSubmit={handleSubmit(onSubmit)}
         >
           <input
-            className="mb-10 w-1/2 m-auto bg-[#dbd0b8] h-10 rounded-lg pl-5"
+            className="mb-10 w-[80%] lg:w-1/2 m-auto bg-[#dbd0b8] h-10 rounded-lg pl-5"
             placeholder="email"
             {...register("email", { required: true })}
           />
           {errors.password && <span>This field is required</span>}
 
           <input
-            className="mb-10 w-1/2 m-auto bg-[#dbd0b8] h-10 rounded-lg pl-5"
+            className="mb-10 w-[80%] lg:w-1/2 m-auto bg-[#dbd0b8] h-10 rounded-lg pl-5"
             placeholder="password"
             type="password"
             {...register("password", { required: true })}
