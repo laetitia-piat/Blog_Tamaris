@@ -47,4 +47,4 @@ jobs:
           file: Dockerfile.prod
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/img:latest, ${{ secrets.DOCKERHUB_USERNAME }}/img:${{ env.COMMIT_SHORT_SHA }}
       - name: Send webhook to vps
-        run: curl https://staging.blog-tamaris.fr/hooks/update
+        run: curl http://staging.blog-tamaris.fr:9000/hooks/update
