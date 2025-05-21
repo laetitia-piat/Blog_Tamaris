@@ -41,17 +41,17 @@ const HomePage = () => {
   if (error) return <p>Error!</p>;
   if (data && userInfos.data?.getUserInfo.isLoggedIn) {
     return (
-      <>
-        <div className="flex justify-center mb-10 mt-15">
+      <div className="flex flex-col items-center w-screen h-screen ]">
+        <div className="mt-10 mb-10">
           <Link to="/post/new">
-            <button className="bg-[#4c7d48] p-2 rounded-full text-white">
+            <button className="bg-[#4c7d48] p-2 rounded-2xl text-white">
               Publier une photo
             </button>
           </Link>
         </div>
         <section className="flex justify-evenly flex-wrap">
           {data.getAllPosts.map((post) => (
-            <div className="bg-[#fafaf2] mb-10 mr-5 max-w-[288px] ">
+            <div className="bg-[#f7f0e1] flex rounded-2xl mr-5 max-w-[288px] ">
               <PostCard
                 id={post.id}
                 titre={post.titre}
@@ -62,16 +62,11 @@ const HomePage = () => {
             </div>
           ))}
         </section>
-      </>
+      </div>
     );
   } else {
     return (
-      <div
-        className="flex flex-col items-center justify-center w-screen h-screen bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/tamaris_background.jpg')",
-        }}
-      >
+      <div className="flex flex-col items-center justify-center w-screen h-screen">
         <h1 className="text-4xl sm:text-5xl md:text-6xl text-[#3c5c39] font-bold pb-15 lg:pt-40">
           BLOG DES TAMARIS
         </h1>
