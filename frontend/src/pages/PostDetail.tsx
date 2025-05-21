@@ -5,6 +5,7 @@ import {
   useCreateNewCommentMutation,
   useGetPostByIdQuery,
 } from "../generated/graphql-types";
+import { GET_ALL_POSTS } from "../graphql/queries";
 
 const PostDetail = () => {
   const { id }: any = useParams();
@@ -14,7 +15,7 @@ const PostDetail = () => {
     variables: { getPostByIdId: parseInt(id) },
   });
   const [createNewComment] = useCreateNewCommentMutation({
-    // refetchQueries: [GET_ALL_POSTS],
+    refetchQueries: [GET_ALL_POSTS],
   });
 
   const {
@@ -46,24 +47,23 @@ const PostDetail = () => {
             {data.getPostById.titre}
           </h2>
           <img className="w-180" src={data.getPostById.photo} />
-          <div className="w-1/2">
+          <div className="w-1/2 bg-[#f7f0e1] flex rounded-2xl mt-5">
             <form
-              className="flex flex-col items-center mt-15 w-full"
+              className="flex flex-col items-center mt-5 w-full"
               onSubmit={handleSubmit(onSubmit)}
             >
-              <label>De: </label>
               <input
-                className="border-1 border-solid w-full mb-10"
+                className="bg-[#dbd0b8] w-[80%] mb-5"
+                placeholder="Votre nom"
                 {...register("auteur")}
               />
-
-              <label>Écrivez votre commentaire:</label>
               <textarea
-                className="border-1 border-solid w-full"
+                placeholder="Votre commentaire"
+                className="bg-[#dbd0b8] w-[80%]"
                 {...register("content")}
               />
               <button
-                className="bg-[#4c7d48] w-32 p-2 mt-15 mb-15 rounded-full text-white"
+                className="bg-[#4c7d48] w-30 p-2 mt-5 mb-5 rounded-2xl text-white"
                 type="submit"
               >
                 Valider
@@ -74,7 +74,7 @@ const PostDetail = () => {
             {data.getPostById.comments
               ? data.getPostById.comments.map((comment) => (
                   <div
-                    className="mb-10 border-1 border-solid border-red-700 rounded-full p-5"
+                    className=" mb-10 border-1 border-solid border-red-700 rounded-full p-5"
                     key={comment.id}
                   >
                     <p className="text-red-700 font-bold">
