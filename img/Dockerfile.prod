@@ -13,5 +13,6 @@ COPY tsconfig.json tsconfig.json
 COPY src src
 
 RUN npm run build
+COPY dist dist
 
 CMD npm run startprod
