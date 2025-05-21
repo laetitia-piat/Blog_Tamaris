@@ -29,14 +29,13 @@ const LoginForm = () => {
   };
   return (
     <>
+      <h1 className="text-center text-3xl text-[#4c7d48] font-bold mt-20">
+        Page de connexion
+      </h1>
       <form
-        className="flex flex-col w-1/2 m-auto mt-50"
+        className="flex flex-col border-2 rounded-lg w-1/3 m-auto mt-50 pt-10"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1 className="text-center text-3xl text-[#4c7d48] font-bold mb-15">
-          Page de connexion
-        </h1>
-
         <input
           className="mb-10 w-1/2 m-auto"
           placeholder="email"
