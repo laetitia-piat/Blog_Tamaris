@@ -12,6 +12,6 @@ COPY src src
 
 RUN npm run build
 
-COPY dist dist
+#COPY dist dist
 
 CMD npm run startprod
