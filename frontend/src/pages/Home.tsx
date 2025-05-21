@@ -72,11 +72,11 @@ const HomePage = () => {
           backgroundImage: "url('/images/tamaris_background.jpg')",
         }}
       >
-        <h1 className="text-4xl lg:text-6xl text-[#3c5c39] font-bold pt-20 lg:pt-40">
+        <h1 className="text-4xl lg:text-6xl text-[#3c5c39] font-bold pb-20 lg:pt-40">
           BLOG DES TAMARIS
         </h1>
         <form
-          className="flex flex-col bg-[#f7f0e1] rounded-lg w-[75%] lg:w-1/3 m-auto lg:mt-30 pt-10"
+          className="flex flex-col bg-[#f7f0e1] rounded-lg w-[75%] lg:w-1/3 lg:m-auto lg:mt-30 pt-10"
           onSubmit={handleSubmit(onSubmit)}
         >
           <input
