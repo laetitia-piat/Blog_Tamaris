@@ -132,7 +132,7 @@ export type UserInfo = {
 export type UserInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
-  residentId: Scalars['Float']['input'];
+  residentId?: InputMaybe<Scalars['Float']['input']>;
   role: Scalars['String']['input'];
 };
 

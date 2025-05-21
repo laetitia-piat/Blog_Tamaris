@@ -27,7 +27,7 @@ export class User extends BaseEntity {
   @Field(() => Resident)
   @ManyToOne(() => Resident, (resident) => resident.users, { nullable: true })
   @JoinColumn()
-  resident: Resident;
+  resident?: Resident;
 
   @Field()
   @Column({ default: "USER" })
@@ -42,8 +42,7 @@ export class UserInput implements Partial<User> {
   @Field()
   password: string;
 
-  @Field()
-  @Column({ nullable: true })
+  @Field({ nullable: true })
   residentId?: number;
 
   @Field()
