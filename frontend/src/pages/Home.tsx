@@ -41,7 +41,7 @@ const HomePage = () => {
       <div
         className="flex flex-col items-center justify-center w-screen h-screen bg-cover bg-center"
         style={{
-          backgroundImage: "url('/images/tamaris_background.png')",
+          backgroundImage: "url('/images/tamaris_background.jpg')",
         }}
       >
         <h1 className="text-6xl text-[#3c5c39] font-bold">
