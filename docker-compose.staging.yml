@@ -55,7 +55,7 @@ services:
   img:
     image: laetitia29/img:latest
     volumes:
-      - ./uploads:/app/uploads
+      - ./img/uploads:/app/uploads
     healthcheck:
       test: "curl --fail --request GET --url 'http://localhost:4000' || exit 1"
       interval: 1s
