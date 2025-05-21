@@ -76,7 +76,7 @@ const HomePage = () => {
           BLOG DES TAMARIS
         </h1>
         <form
-          className="flex flex-col bg-[#f7f0e1] rounded-lg w-[75%] lg:w-1/3 lg:m-auto lg:mt-30 pt-10"
+          className="flex flex-col bg-[#f7f0e1] rounded-lg w-[75%] md:w-1/3 lg:m-auto lg:mt-30 pt-10"
           onSubmit={handleSubmit(onSubmit)}
         >
           <input
