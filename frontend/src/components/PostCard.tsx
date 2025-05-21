@@ -23,6 +23,7 @@ const PostCard = ({
           <img className="object-cover w-full h-full" src={photo} />
         </div>
         <div className="flex flex-col">
+          <div>{commentaires} commentaire(s)</div>
           <div className="flex flex-wrap justify-evenly mb-5">
             {residents.map((resident) => (
               <div
@@ -33,7 +34,6 @@ const PostCard = ({
               </div>
             ))}
           </div>
-          <div>{commentaires} commentaire(s)</div>
         </div>
       </div>
     </div>
