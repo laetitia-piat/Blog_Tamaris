@@ -5,6 +5,7 @@ import NewPostForm from "./pages/NewPostForm";
 import PostDetail from "./pages/PostDetail";
 import { ToastContainer } from "react-toastify";
 import UserManagement from "./pages/UserManagement";
+import "./app.css";
 
 const App = () => {
   return (

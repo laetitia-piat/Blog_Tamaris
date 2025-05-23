@@ -68,7 +68,7 @@ const HomePage = () => {
   } else {
     return (
       <div className="flex flex-col items-center justify-center w-screen h-screen">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl text-[#3c5c39] font-bold pb-15 lg:pt-40">
+        <h1 className="font-quicksand text-4xl sm:text-5xl md:text-6xl text-[#3c5c39] font-bold pb-15 lg:pt-40">
           BLOG DES TAMARIS
         </h1>
         <form
