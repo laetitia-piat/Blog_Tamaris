@@ -49,7 +49,7 @@ export const GET_ALL_RESIDENTS = gql`
 export const GELL_ALL_USERS = gql`
   query GetAllUsers {
     getAllUsers {
-      email
+      userName
       role
       resident {
         prenom
@@ -62,7 +62,7 @@ export const GET_USER_INFOS = gql`
   query GetUserInfo {
     getUserInfo {
       isLoggedIn
-      email
+      userName
       role
     }
   }

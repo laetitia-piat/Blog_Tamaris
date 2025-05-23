@@ -32,8 +32,8 @@ export type CommentInput = {
 };
 
 export type LoginUserInput = {
-  email: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  userName: Scalars['String']['input'];
 };
 
 export type Mutation = {
@@ -115,25 +115,25 @@ export type ResidentInput = {
 
 export type User = {
   __typename?: 'User';
-  email: Scalars['String']['output'];
   hashedPassword: Scalars['String']['output'];
   id: Scalars['Float']['output'];
   resident: Resident;
   role: Scalars['String']['output'];
+  userName: Scalars['String']['output'];
 };
 
 export type UserInfo = {
   __typename?: 'UserInfo';
-  email?: Maybe<Scalars['String']['output']>;
   isLoggedIn: Scalars['Boolean']['output'];
   role?: Maybe<Scalars['String']['output']>;
+  userName?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserInput = {
-  email: Scalars['String']['input'];
   password: Scalars['String']['input'];
   residentId?: InputMaybe<Scalars['Float']['input']>;
   role: Scalars['String']['input'];
+  userName: Scalars['String']['input'];
 };
 
 export type CreateNewPostMutationVariables = Exact<{
@@ -189,12 +189,12 @@ export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Arra
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', email: string, role: string, resident: { __typename?: 'Resident', prenom: string } }> };
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', userName: string, role: string, resident: { __typename?: 'Resident', prenom: string } }> };
 
 export type GetUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUserInfoQuery = { __typename?: 'Query', getUserInfo: { __typename?: 'UserInfo', isLoggedIn: boolean, email?: string | null, role?: string | null } };
+export type GetUserInfoQuery = { __typename?: 'Query', getUserInfo: { __typename?: 'UserInfo', isLoggedIn: boolean, userName?: string | null, role?: string | null } };
 
 
 export const CreateNewPostDocument = gql`
@@ -507,7 +507,7 @@ export type GetAllResidentsQueryResult = Apollo.QueryResult<GetAllResidentsQuery
 export const GetAllUsersDocument = gql`
     query GetAllUsers {
   getAllUsers {
-    email
+    userName
     role
     resident {
       prenom
@@ -551,7 +551,7 @@ export const GetUserInfoDocument = gql`
     query GetUserInfo {
   getUserInfo {
     isLoggedIn
-    email
+    userName
     role
   }
 }

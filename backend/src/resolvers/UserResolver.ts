@@ -18,7 +18,7 @@ class UserInfo {
   isLoggedIn: boolean;
 
   @Field({ nullable: true })
-  email?: String;
+  userName?: String;
 
   @Field({ nullable: true })
   role?: String;
@@ -38,7 +38,7 @@ class UserResolver {
       }
     }
     const result = await User.save({
-      email: newUserData.email,
+      userName: newUserData.userName,
       hashedPassword: await argon2.hash(newUserData.password),
       resident,
       role: newUserData.role,
@@ -50,7 +50,7 @@ class UserResolver {
   @Mutation(() => String)
   async login(@Arg("data") loginUserData: LoginUserInput, @Ctx() context: any) {
     let isPasswordOk = false;
-    const user = await User.findOneBy({ email: loginUserData.email });
+    const user = await User.findOneBy({ userName: loginUserData.userName });
     if (user) {
       isPasswordOk = await argon2.verify(
         user.hashedPassword,
@@ -59,7 +59,7 @@ class UserResolver {
     }
     if (isPasswordOk === true && user !== null) {
       const token = jwt.sign(
-        { email: user.email },
+        { userName: user.userName },
         process.env.JWT_SECRET_KEY as Secret
       );
       context.res.setHeader("Set-Cookie", `token=${token}; Secure; HttpOnly`);
@@ -80,8 +80,12 @@ class UserResolver {
 
   @Query(() => UserInfo)
   async getUserInfo(@Ctx() context: any) {
-    if (context.email) {
-      return { isLoggedIn: true, email: context.email, role: context.role };
+    if (context.userName) {
+      return {
+        isLoggedIn: true,
+        userName: context.userName,
+        role: context.role,
+      };
     } else {
       return {
         isLoggedIn: false,

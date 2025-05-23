@@ -27,7 +27,7 @@ const HomePage = () => {
   const onSubmit: SubmitHandler<LoginUserInput> = (data) => {
     console.log(data);
     login({
-      variables: { data: { email: data.email, password: data.password } },
+      variables: { data: { userName: data.userName, password: data.password } },
       onCompleted: (result) => {
         localStorage.setItem("token", result.login);
         navigate("/");
@@ -76,8 +76,8 @@ const HomePage = () => {
         >
           <input
             className="mb-10 w-[80%] lg:w-1/2 m-auto bg-[#dbd0b8] h-10 rounded-lg pl-5"
-            placeholder="email"
-            {...register("email", { required: true })}
+            placeholder="userName"
+            {...register("userName", { required: true })}
           />
           {errors.password && <span>This field is required</span>}
 

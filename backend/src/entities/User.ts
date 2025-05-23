@@ -18,7 +18,7 @@ export class User extends BaseEntity {
 
   @Field()
   @Column({ nullable: true })
-  email: string;
+  userName: string;
 
   @Field()
   @Column({ nullable: true })
@@ -37,7 +37,7 @@ export class User extends BaseEntity {
 @InputType()
 export class UserInput implements Partial<User> {
   @Field()
-  email: string;
+  userName: string;
 
   @Field()
   password: string;
@@ -53,7 +53,7 @@ export class UserInput implements Partial<User> {
 @InputType()
 export class LoginUserInput implements Partial<User> {
   @Field()
-  email: string;
+  userName: string;
 
   @Field()
   password: string;

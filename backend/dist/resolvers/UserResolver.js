@@ -62,7 +62,7 @@ __decorate([
 __decorate([
     (0, type_graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
-], UserInfo.prototype, "email", void 0);
+], UserInfo.prototype, "userName", void 0);
 __decorate([
     (0, type_graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
@@ -81,7 +81,7 @@ let UserResolver = class UserResolver {
             }
         }
         const result = await User_1.User.save({
-            email: newUserData.email,
+            userName: newUserData.userName,
             hashedPassword: await argon2.hash(newUserData.password),
             resident,
             role: newUserData.role,
@@ -91,12 +91,12 @@ let UserResolver = class UserResolver {
     }
     async login(loginUserData, context) {
         let isPasswordOk = false;
-        const user = await User_1.User.findOneBy({ email: loginUserData.email });
+        const user = await User_1.User.findOneBy({ userName: loginUserData.userName });
         if (user) {
             isPasswordOk = await argon2.verify(user.hashedPassword, loginUserData.password);
         }
         if (isPasswordOk === true && user !== null) {
-            const token = jsonwebtoken_1.default.sign({ email: user.email }, process.env.JWT_SECRET_KEY);
+            const token = jsonwebtoken_1.default.sign({ userName: user.userName }, process.env.JWT_SECRET_KEY);
             context.res.setHeader("Set-Cookie", `token=${token}; Secure; HttpOnly`);
             return token;
         }
@@ -109,8 +109,12 @@ let UserResolver = class UserResolver {
         return "You're log out";
     }
     async getUserInfo(context) {
-        if (context.email) {
-            return { isLoggedIn: true, email: context.email, role: context.role };
+        if (context.userName) {
+            return {
+                isLoggedIn: true,
+                userName: context.userName,
+                role: context.role,
+            };
         }
         else {
             return {
