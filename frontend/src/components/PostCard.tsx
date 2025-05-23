@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "@fontsource/quicksand";
 
 export type PostCardProps = {
   id: number;
@@ -18,7 +19,9 @@ const PostCard = ({
   <Link to={`/post/${id}`}>
     <div className="flex flex-col h-full">
       <div className="flex flex-col m-4 ">
-        <div className="text-center text-xl mb-2 uppercase">{titre}</div>
+        <div className="font-quicksand text-center text-xl mb-2 uppercase">
+          {titre}
+        </div>
         <div className="w-64 h-64 overflow-hidden flex justify-center items-center">
           <img className="object-cover w-full h-full" src={photo} />
         </div>

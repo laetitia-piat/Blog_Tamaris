@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import "@fontsource/quicksand";
 import PostCard from "../components/PostCard";
 import {
   LoginUserInput,
@@ -41,7 +42,7 @@ const HomePage = () => {
   if (error) return <p>Error!</p>;
   if (data && userInfos.data?.getUserInfo.isLoggedIn) {
     return (
-      <div className="flex flex-col items-center w-screen h-screen ]">
+      <div className="flex flex-col items-center w-[80%] m-auto h-screen ]">
         <div className="mt-10 mb-10">
           <Link to="/post/new">
             <button className="bg-[#4c7d48] p-2 rounded-2xl text-white">
@@ -76,14 +77,14 @@ const HomePage = () => {
         >
           <input
             className="mb-10 w-[80%] lg:w-1/2 m-auto bg-[#dbd0b8] h-10 rounded-lg pl-5"
-            placeholder="userName"
+            placeholder="Identifiant"
             {...register("userName", { required: true })}
           />
           {errors.password && <span>This field is required</span>}
 
           <input
             className="mb-10 w-[80%] lg:w-1/2 m-auto bg-[#dbd0b8] h-10 rounded-lg pl-5"
-            placeholder="password"
+            placeholder="Mot de passe"
             type="password"
             {...register("password", { required: true })}
           />
