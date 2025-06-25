@@ -66,7 +66,7 @@ const PostDetail = () => {
                 className="bg-[#4c7d48] w-30 p-2 mt-5 mb-5 rounded-2xl text-white"
                 type="submit"
               >
-                Valider
+                Valider!
               </button>
             </form>
           </div>
