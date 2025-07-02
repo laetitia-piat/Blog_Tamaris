@@ -59,7 +59,7 @@ class UserResolver {
     }
     if (isPasswordOk === true && user !== null) {
       const token = jwt.sign(
-        { userName: user.userName },
+        { userName: user.userName, role: user.role },
         process.env.JWT_SECRET_KEY as Secret
       );
       context.res.setHeader("Set-Cookie", `token=${token}; Secure; HttpOnly`);
