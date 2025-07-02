@@ -49,6 +49,7 @@ export const GET_ALL_RESIDENTS = gql`
 export const GELL_ALL_USERS = gql`
   query GetAllUsers {
     getAllUsers {
+      id
       userName
       role
       resident {

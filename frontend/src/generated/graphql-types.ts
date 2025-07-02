@@ -189,7 +189,7 @@ export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Arra
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', userName: string, role: string, resident: { __typename?: 'Resident', prenom: string } }> };
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', id: number, userName: string, role: string, resident: { __typename?: 'Resident', prenom: string } }> };
 
 export type GetUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -507,6 +507,7 @@ export type GetAllResidentsQueryResult = Apollo.QueryResult<GetAllResidentsQuery
 export const GetAllUsersDocument = gql`
     query GetAllUsers {
   getAllUsers {
+    id
     userName
     role
     resident {

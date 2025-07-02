@@ -1,74 +1,70 @@
-import { useNavigate } from "react-router-dom";
-import {
-  LoginUserInput,
-  useGetUserInfoQuery,
-  useLoginMutation,
-} from "../generated/graphql-types";
-import { SubmitHandler, useForm } from "react-hook-form";
-//import { GET_USER_INFOS } from "../graphql/queries";
+import { useGetUserInfoQuery } from "../generated/graphql-types";
+import UserAdmin from "../components/UserAdmin";
+import { useState } from "react";
+import ResidentAdmin from "../components/ResidentAdmin";
+import PicturesAdmin from "../components/PicturesAdmin";
+import CommentAdmin from "../components/CommentAdmin";
 
 const UserManagement = () => {
-  const navigate = useNavigate();
   const userInfos = useGetUserInfoQuery();
-  const [login] = useLoginMutation({
-    //refetchQueries: [{ }],
-  });
-  console.log(userInfos.data);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginUserInput>();
-  const onSubmit: SubmitHandler<LoginUserInput> = (data) => {
-    console.log(data);
-    login({
-      variables: { data: { userName: data.userName, password: data.password } },
-      onCompleted: (result) => {
-        localStorage.setItem("token", result.login);
-        navigate("/");
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    });
-  };
+  const [user, setUser] = useState(false);
+  const [resident, setResident] = useState(false);
+  const [photo, setPhoto] = useState(false);
+  const [comment, setComment] = useState(false);
+
   if (userInfos.data?.getUserInfo.role === "SUPERADMIN") {
     return (
       <>
-        <h1 className="text-center text-3xl text-[#4c7d48] font-bold mt-20">
-          Gestion des utilisateurs
-        </h1>
-        <form
-          className="flex flex-col border-2 rounded-lg w-1/3 m-auto mt-50 pt-10"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <input
-            className="mb-10 w-1/2 m-auto"
-            placeholder="userName"
-            {...register("userName", { required: true })}
-          />
-          {errors.password && <span>This field is required</span>}
-
-          <input
-            className="mb-10 w-1/2 m-auto"
-            placeholder="password"
-            type="password"
-            {...register("password", { required: true })}
-          />
-
-          {errors.password && <span>This field is required</span>}
-          <input
-            className="bg-[#4c7d48] p-2 w-32 m-auto rounded-full text-white"
-            type="submit"
-          ></input>
-
-          <a className="mt-5 text-center" href="register">
-            Pas encore inscrit?
-          </a>
-          {/* <a className="linkSubscribe" href="forgotPassword">
-            Mot de passe oublié?
-          </a> */}
-        </form>
+        <div className="flex justify-evenly items-center bg-[#f7f0e1] mt-10 h-[60px]">
+          <button
+            className="bg-[#4c7d48] p-2 rounded-2xl text-white"
+            onClick={() => {
+              setUser(true);
+              setResident(false);
+              setPhoto(false);
+              setComment(false);
+            }}
+          >
+            Gestion des utilisateurs
+          </button>
+          <button
+            className="bg-[#4c7d48] p-2 rounded-2xl text-white"
+            onClick={() => {
+              setResident(true);
+              setUser(false);
+              setPhoto(false);
+              setComment(false);
+            }}
+          >
+            Gestion des résidents
+          </button>
+          <button
+            className="bg-[#4c7d48] p-2 rounded-2xl text-white"
+            onClick={() => {
+              setPhoto(true);
+              setResident(false);
+              setUser(false);
+              setComment(false);
+            }}
+          >
+            Gestion des photos
+          </button>
+          <button
+            className="bg-[#4c7d48] p-2 rounded-2xl text-white"
+            onClick={() => {
+              setComment(true);
+              setUser(false);
+              setResident(false);
+              setPhoto(false);
+            }}
+          >
+            Gestion des commentaires
+          </button>
+        </div>
+        {user === true ? <UserAdmin /> : <></>}
+        {resident === true ? <ResidentAdmin /> : <></>}
+        {photo === true ? <PicturesAdmin /> : <></>}
+        {comment === true ? <CommentAdmin /> : <></>}
       </>
     );
   } else {
