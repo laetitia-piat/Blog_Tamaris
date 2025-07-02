@@ -13,7 +13,7 @@ const UserManagement = () => {
   const [login] = useLoginMutation({
     //refetchQueries: [{ }],
   });
-
+  console.log(userInfos.data);
   const {
     register,
     handleSubmit,

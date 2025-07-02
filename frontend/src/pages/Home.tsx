@@ -95,9 +95,6 @@ const HomePage = () => {
             type="submit"
           ></input>
 
-          <a className="mt-5 text-center text-[#3c5c39] mb-10" href="register">
-            Pas encore inscrit?
-          </a>
           {/* <a className="linkSubscribe" href="forgotPassword">
             Mot de passe oublié?
           </a> */}
