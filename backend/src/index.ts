@@ -49,7 +49,7 @@ const start = async () => {
             console.log("payload was found and returned to resolver");
             return {
               userName: payload.userName,
-              userRole: payload.userRole,
+              role: payload.role,
               res: res,
             };
           }
