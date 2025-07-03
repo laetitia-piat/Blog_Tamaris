@@ -6,7 +6,7 @@ import {
   useLoginMutation,
 } from "../generated/graphql-types";
 import { GET_USER_INFOS } from "../graphql/queries";
-import { set, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import AllPicturesByResident from "../components/AllPicturesByResident";
 import AllPictures from "../components/AllPictures";
