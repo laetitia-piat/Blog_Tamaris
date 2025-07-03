@@ -13,7 +13,6 @@ const PicturesAdmin = () => {
         {data.getAllPosts.map((post) => (
           <div className="bg-[#f7f0e1] flex rounded-2xl mr-5 mb-5 max-w-[288px] ">
             <MiniPostCards
-              id={post.id}
               titre={post.titre}
               residents={post.residents ?? []}
               photo={post.photo}
