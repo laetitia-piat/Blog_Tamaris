@@ -1,11 +1,10 @@
 export type PostCardProps = {
-  id: number;
   residents: { id: number; prenom: string }[];
   photo: string;
   titre: string;
 };
 
-const MiniPostCards = ({ photo, titre, residents, id }: PostCardProps) => (
+const MiniPostCards = ({ photo, titre, residents }: PostCardProps) => (
   <div className="flex flex-col h-full">
     <div className="flex flex-col m-4 ">
       <div className=" text-center text-xl mb-2 uppercase">{titre}</div>
