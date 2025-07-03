@@ -1,25 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
 import "@fontsource/quicksand";
-import PostCard from "../components/PostCard";
 import {
   LoginUserInput,
-  useGetAllPostsQuery,
   useGetUserInfoQuery,
   useLoginMutation,
 } from "../generated/graphql-types";
 import { GET_USER_INFOS } from "../graphql/queries";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { set, SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
+import AllPicturesByResident from "../components/AllPicturesByResident";
+import AllPictures from "../components/AllPictures";
 
 const HomePage = () => {
-  const { loading, error, data } = useGetAllPostsQuery();
   const userInfos = useGetUserInfoQuery();
-  console.log(userInfos.data);
-
   const navigate = useNavigate();
   const [login] = useLoginMutation({
     refetchQueries: [{ query: GET_USER_INFOS }],
   });
-
+  const [screenAllPictures, setScreenAllPictures] = useState(false);
+  const [screenAllPicturesByResident, setcreenAllPicturesByResident] =
+    useState(false);
   const {
     register,
     handleSubmit,
@@ -38,32 +38,49 @@ const HomePage = () => {
       },
     });
   };
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error!</p>;
-  if (data && userInfos.data?.getUserInfo.isLoggedIn) {
+
+  if (userInfos.data?.getUserInfo.isLoggedIn) {
     return (
-      <div className="flex flex-col items-center w-[80%] m-auto h-screen ]">
-        <div className="mt-10 mb-10">
-          <Link to="/post/new">
-            <button className="bg-[#4c7d48] p-2 rounded-2xl text-white">
-              Publier une photo
-            </button>
-          </Link>
+      <>
+        <div className="flex justify-evenly items-center bg-[#f7f0e1] mt-10 h-[60px]">
+          <button
+            className="bg-[#4c7d48] p-2 rounded-2xl text-white"
+            onClick={() => {
+              setcreenAllPicturesByResident(true);
+              setScreenAllPictures(false);
+            }}
+          >
+            Photos
+          </button>
+          <button
+            className="bg-[#4c7d48] p-2 rounded-2xl text-white"
+            onClick={() => {
+              setScreenAllPictures(true);
+              setcreenAllPicturesByResident(false);
+            }}
+          >
+            Photos du foyer
+          </button>
+          {userInfos.data?.getUserInfo.role === "SUPERADMIN" && (
+            <Link to="/admin">
+              <button className="bg-[#4c7d48] p-2 rounded-2xl text-white">
+                Gestion des utilisateurs
+              </button>
+            </Link>
+          )}
         </div>
-        <section className="flex justify-evenly flex-wrap">
-          {data.getAllPosts.map((post) => (
-            <div className="bg-[#f7f0e1] flex rounded-2xl mr-5 mb-5 max-w-[288px] ">
-              <PostCard
-                id={post.id}
-                titre={post.titre}
-                residents={post.residents ?? []}
-                photo={post.photo}
-                commentaires={post.comments?.length ?? 0}
-              />
-            </div>
-          ))}
-        </section>
-      </div>
+        <div className="flex flex-col items-center w-[80%] m-auto h-screen ]">
+          <div className="mt-10 mb-10">
+            <Link to="/post/new">
+              <button className="bg-[#4c7d48] p-2 rounded-2xl text-white">
+                Publier une photo
+              </button>
+            </Link>
+          </div>
+          {screenAllPicturesByResident ? <AllPicturesByResident /> : <></>}
+          {screenAllPictures ? <AllPictures /> : <></>}
+        </div>
+      </>
     );
   } else {
     return (
