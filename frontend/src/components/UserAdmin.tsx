@@ -11,7 +11,7 @@ const userAdmin = () => {
       <h2 className="text-center text-2xl text-[#4c7d48] font-bold mt-10">
         Liste des utilisateurs
       </h2>
-      <table className="min-w-full border-collapse border border-[#4c7d48] bg-[#f7f0e1]">
+      <table className="min-w-[90%] md:w-1/2 border-collapse border border-[#4c7d48] bg-[#f7f0e1]">
         <thead>
           <tr>
             <th className="border border-[#4c7d48] p-2">ID</th>
