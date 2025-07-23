@@ -108,7 +108,7 @@ const HomePage = () => {
 
           {errors.password && <span>This field is required</span>}
           <input
-            className="bg-[#4c7d48] p-2 w-32 m-auto rounded-full text-white"
+            className="bg-[#4c7d48] p-2 w-32 m-auto rounded-full text-white mb-10"
             type="submit"
           ></input>
 
