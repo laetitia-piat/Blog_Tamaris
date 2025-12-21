@@ -17,8 +17,8 @@ export class Resident extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
-  @Column()
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   name?: string;
 
   @Field(() => [Post])
