@@ -17,17 +17,13 @@ export class Resident extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
-  name?: string;
+  @Field()
+  @Column()
+  prenom?: string;
 
   @Field(() => [Post])
   @ManyToMany(() => Post, (post) => post.residents)
   posts: Post[];
-
-  @Field()
-  @Column({ default: false })
-  isPhotoSharingAllowed: boolean;
 
   @Field(() => [User])
   @OneToMany(() => User, (user) => user.resident)
