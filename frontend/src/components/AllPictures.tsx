@@ -15,7 +15,10 @@ const AllPictures = () => {
             <PostCard
               id={post.id}
               titre={post.titre}
-              residents={post.residents ?? []}
+              residents={(post.residents ?? []).map((r) => ({
+                id: r.id,
+                name: r.name ?? "",
+              }))}
               photo={post.photo}
               commentaires={post.comments?.length ?? 0}
             />

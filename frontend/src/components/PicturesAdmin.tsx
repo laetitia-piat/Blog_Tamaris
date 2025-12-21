@@ -14,7 +14,10 @@ const PicturesAdmin = () => {
           <div className="bg-[#f7f0e1] flex rounded-2xl mr-5 mb-5 max-w-[288px] ">
             <MiniPostCards
               titre={post.titre}
-              residents={post.residents ?? []}
+              residents={(post.residents ?? []).map((r) => ({
+                id: r.id,
+                name: r.name ?? "",
+              }))}
               photo={post.photo}
             />
           </div>
