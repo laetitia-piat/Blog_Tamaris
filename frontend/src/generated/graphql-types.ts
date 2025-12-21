@@ -105,7 +105,7 @@ export type Resident = {
   __typename?: 'Resident';
   id: Scalars['Float']['output'];
   isPhotoSharingAllowed: Scalars['Boolean']['output'];
-  name?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
   posts: Array<Post>;
   users: Array<User>;
 };
@@ -173,7 +173,7 @@ export type RegisterMutation = { __typename?: 'Mutation', register: string };
 export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __typename?: 'Post', id: number, titre: string, photo: string, residents?: Array<{ __typename?: 'Resident', id: number, name?: string | null }> | null, comments?: Array<{ __typename?: 'Comment', id: number, content: string, auteur: string }> | null }> };
+export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __typename?: 'Post', id: number, titre: string, photo: string, residents?: Array<{ __typename?: 'Resident', id: number, name: string }> | null, comments?: Array<{ __typename?: 'Comment', id: number, content: string, auteur: string }> | null }> };
 
 export type GetPostByIdQueryVariables = Exact<{
   getPostByIdId: Scalars['Float']['input'];
@@ -185,12 +185,12 @@ export type GetPostByIdQuery = { __typename?: 'Query', getPostById: { __typename
 export type GetAllResidentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Array<{ __typename?: 'Resident', id: number, name?: string | null }> };
+export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Array<{ __typename?: 'Resident', id: number, name: string }> };
 
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', id: number, userName: string, role: string, resident: { __typename?: 'Resident', name?: string | null } }> };
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', id: number, userName: string, role: string, resident: { __typename?: 'Resident', name: string } }> };
 
 export type GetUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 

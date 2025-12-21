@@ -19,11 +19,15 @@ export class Resident extends BaseEntity {
 
   @Field()
   @Column()
-  prenom?: string;
+  name?: string;
 
   @Field(() => [Post])
   @ManyToMany(() => Post, (post) => post.residents)
   posts: Post[];
+
+  @Field()
+  @Column({ default: false })
+  isPhotoSharingAllowed: boolean;
 
   @Field(() => [User])
   @OneToMany(() => User, (user) => user.resident)
