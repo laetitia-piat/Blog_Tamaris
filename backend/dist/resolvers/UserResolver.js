@@ -96,7 +96,7 @@ let UserResolver = class UserResolver {
             isPasswordOk = await argon2.verify(user.hashedPassword, loginUserData.password);
         }
         if (isPasswordOk === true && user !== null) {
-            const token = jsonwebtoken_1.default.sign({ userName: user.userName }, process.env.JWT_SECRET_KEY);
+            const token = jsonwebtoken_1.default.sign({ userName: user.userName, role: user.role }, process.env.JWT_SECRET_KEY);
             context.res.setHeader("Set-Cookie", `token=${token}; Secure; HttpOnly`);
             return token;
         }
