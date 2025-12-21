@@ -6,7 +6,7 @@ export const GET_ALL_POSTS = gql`
       id
       residents {
         id
-        prenom
+        name
       }
       titre
       photo
@@ -41,7 +41,7 @@ export const GET_ALL_RESIDENTS = gql`
   query GetAllResidents {
     getAllResidents {
       id
-      prenom
+      name
     }
   }
 `;
@@ -53,7 +53,7 @@ export const GELL_ALL_USERS = gql`
       userName
       role
       resident {
-        prenom
+        name
       }
     }
   }

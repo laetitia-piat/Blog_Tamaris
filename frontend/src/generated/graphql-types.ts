@@ -104,8 +104,9 @@ export type QueryGetPostByIdArgs = {
 export type Resident = {
   __typename?: 'Resident';
   id: Scalars['Float']['output'];
+  isPhotoSharingAllowed: Scalars['Boolean']['output'];
+  name?: Maybe<Scalars['String']['output']>;
   posts: Array<Post>;
-  prenom: Scalars['String']['output'];
   users: Array<User>;
 };
 
@@ -172,7 +173,7 @@ export type RegisterMutation = { __typename?: 'Mutation', register: string };
 export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __typename?: 'Post', id: number, titre: string, photo: string, residents?: Array<{ __typename?: 'Resident', id: number, prenom: string }> | null, comments?: Array<{ __typename?: 'Comment', id: number, content: string, auteur: string }> | null }> };
+export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __typename?: 'Post', id: number, titre: string, photo: string, residents?: Array<{ __typename?: 'Resident', id: number, name?: string | null }> | null, comments?: Array<{ __typename?: 'Comment', id: number, content: string, auteur: string }> | null }> };
 
 export type GetPostByIdQueryVariables = Exact<{
   getPostByIdId: Scalars['Float']['input'];
@@ -184,12 +185,12 @@ export type GetPostByIdQuery = { __typename?: 'Query', getPostById: { __typename
 export type GetAllResidentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Array<{ __typename?: 'Resident', id: number, prenom: string }> };
+export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Array<{ __typename?: 'Resident', id: number, name?: string | null }> };
 
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', id: number, userName: string, role: string, resident: { __typename?: 'Resident', prenom: string } }> };
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', id: number, userName: string, role: string, resident: { __typename?: 'Resident', name?: string | null } }> };
 
 export type GetUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -370,7 +371,7 @@ export const GetAllPostsDocument = gql`
     id
     residents {
       id
-      prenom
+      name
     }
     titre
     photo
@@ -406,6 +407,9 @@ export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
         }
+// @ts-ignore
+export function useGetAllPostsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>): Apollo.UseSuspenseQueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
+export function useGetAllPostsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>): Apollo.UseSuspenseQueryResult<GetAllPostsQuery | undefined, GetAllPostsQueryVariables>;
 export function useGetAllPostsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllPostsQuery, GetAllPostsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<GetAllPostsQuery, GetAllPostsQueryVariables>(GetAllPostsDocument, options);
@@ -456,6 +460,9 @@ export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
         }
+// @ts-ignore
+export function useGetPostByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+export function useGetPostByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetPostByIdQuery | undefined, GetPostByIdQueryVariables>;
 export function useGetPostByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
@@ -468,7 +475,7 @@ export const GetAllResidentsDocument = gql`
     query GetAllResidents {
   getAllResidents {
     id
-    prenom
+    name
   }
 }
     `;
@@ -496,6 +503,9 @@ export function useGetAllResidentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetAllResidentsQuery, GetAllResidentsQueryVariables>(GetAllResidentsDocument, options);
         }
+// @ts-ignore
+export function useGetAllResidentsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllResidentsQuery, GetAllResidentsQueryVariables>): Apollo.UseSuspenseQueryResult<GetAllResidentsQuery, GetAllResidentsQueryVariables>;
+export function useGetAllResidentsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllResidentsQuery, GetAllResidentsQueryVariables>): Apollo.UseSuspenseQueryResult<GetAllResidentsQuery | undefined, GetAllResidentsQueryVariables>;
 export function useGetAllResidentsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllResidentsQuery, GetAllResidentsQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<GetAllResidentsQuery, GetAllResidentsQueryVariables>(GetAllResidentsDocument, options);
@@ -511,7 +521,7 @@ export const GetAllUsersDocument = gql`
     userName
     role
     resident {
-      prenom
+      name
     }
   }
 }
@@ -540,6 +550,9 @@ export function useGetAllUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
         }
+// @ts-ignore
+export function useGetAllUsersSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>): Apollo.UseSuspenseQueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;
+export function useGetAllUsersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>): Apollo.UseSuspenseQueryResult<GetAllUsersQuery | undefined, GetAllUsersQueryVariables>;
 export function useGetAllUsersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
@@ -581,6 +594,9 @@ export function useGetUserInfoLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
           const options = {...defaultOptions, ...baseOptions}
           return Apollo.useLazyQuery<GetUserInfoQuery, GetUserInfoQueryVariables>(GetUserInfoDocument, options);
         }
+// @ts-ignore
+export function useGetUserInfoSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetUserInfoQuery, GetUserInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetUserInfoQuery, GetUserInfoQueryVariables>;
+export function useGetUserInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserInfoQuery, GetUserInfoQueryVariables>): Apollo.UseSuspenseQueryResult<GetUserInfoQuery | undefined, GetUserInfoQueryVariables>;
 export function useGetUserInfoSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserInfoQuery, GetUserInfoQueryVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
           return Apollo.useSuspenseQuery<GetUserInfoQuery, GetUserInfoQueryVariables>(GetUserInfoDocument, options);

@@ -1,5 +1,5 @@
 export type PostCardProps = {
-  residents: { id: number; prenom: string }[];
+  residents: { id: number; name: string }[];
   photo: string;
   titre: string;
 };
@@ -16,9 +16,9 @@ const MiniPostCards = ({ photo, titre, residents }: PostCardProps) => (
           {residents.map((resident) => (
             <div
               className="border-1 border-solid border-red-700 rounded-full p-1 mt-2 text-[#4c7d48] font-bold"
-              key={resident.prenom}
+              key={resident.name}
             >
-              {resident.prenom}
+              {resident.name}
             </div>
           ))}
         </div>
