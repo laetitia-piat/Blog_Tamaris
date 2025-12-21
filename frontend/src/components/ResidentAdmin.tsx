@@ -20,7 +20,7 @@ const ResidentAdmin = () => {
           {data?.getAllResidents.map((resident: any) => (
             <tr key={resident.id}>
               <td className="border border-[#4c7d48] p-2">{resident.id}</td>
-              <td className="border border-[#4c7d48] p-2">{resident.prenom}</td>
+              <td className="border border-[#4c7d48] p-2">{resident.name}</td>
             </tr>
           ))}
         </tbody>

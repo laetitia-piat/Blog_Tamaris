@@ -72,7 +72,7 @@ const NewPostForm = () => {
                   value={resident.id}
                   {...register("residents")}
                 />
-                {resident.prenom}
+                {resident.name}
               </label>
             ))}
           </div>
