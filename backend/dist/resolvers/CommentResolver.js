@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const type_graphql_1 = require("type-graphql");
 const Comment_1 = require("../entities/Comment");
+const Post_1 = require("../entities/Post");
 let CommentResolver = class CommentResolver {
     async getAllComments() {
         const comments = await Comment_1.Comment.find({});
@@ -24,10 +25,14 @@ let CommentResolver = class CommentResolver {
         return comment;
     }
     async createNewComment(newCommentData) {
+        const post = await Post_1.Post.findOne({ where: { id: newCommentData.post.id } });
+        if (!post) {
+            throw new Error("Post not found");
+        }
         const newComment = new Comment_1.Comment();
         newComment.content = newCommentData.content;
         newComment.auteur = newCommentData.auteur;
-        newComment.post = newCommentData.post;
+        newComment.post = post;
         const result = await newComment.save();
         return result;
     }

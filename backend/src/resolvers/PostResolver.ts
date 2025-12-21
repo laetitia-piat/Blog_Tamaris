@@ -17,6 +17,16 @@ class PostResolver {
     return post;
   }
 
+  @Query(() => [Post])
+  async getPostsByResidentId(
+    @Arg("residentId") residentId: number
+  ): Promise<Post[]> {
+    return Post.createQueryBuilder("post")
+      .innerJoinAndSelect("post.residents", "resident")
+      .where("resident.id = :residentId", { residentId })
+      .getMany();
+  }
+
   @Mutation(() => Post)
   async createNewPost(@Arg("data") newPOstData: PostInput) {
     const newPostToSave = Post.create({

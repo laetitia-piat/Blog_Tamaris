@@ -1,4 +1,19 @@
 @import "tailwindcss";
+
 body {
-  background-color: #d1cfcf;
+  background-image: url("/images/tamaris_background.jpg");
+  background-size: cover; /* pour couvrir tout l'écran */
+  background-repeat: no-repeat; /* évite la répétition */
+  background-position: center; /* centre l'image */
+  background-attachment: fixed; /* fixe le fond, il ne défile pas */
+}
+input:-webkit-autofill {
+  background-color: #b8ad9c !important;
+  color: #000 !important;
+  box-shadow: inset 0 0 0 1000px #b8ad9c;
+}
+
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover {
+  box-shadow: inset 0 0 0 1000px #b8ad9c;
 }

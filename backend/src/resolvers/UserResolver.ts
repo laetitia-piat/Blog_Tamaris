@@ -18,7 +18,7 @@ class UserInfo {
   isLoggedIn: boolean;
 
   @Field({ nullable: true })
-  email?: String;
+  userName?: String;
 
   @Field({ nullable: true })
   role?: String;
@@ -28,14 +28,20 @@ class UserInfo {
 class UserResolver {
   @Mutation(() => String)
   async register(@Arg("data") newUserData: UserInput) {
-    const resident = await Resident.findOneBy({ id: newUserData.residentId });
-    if (!resident) {
-      throw new Error("Resident not found");
+    let resident: Resident | undefined;
+
+    if (newUserData.residentId) {
+      resident =
+        (await Resident.findOneBy({ id: newUserData.residentId })) || undefined;
+      if (!resident) {
+        throw new Error("Resident not found");
+      }
     }
-    const result = User.save({
-      email: newUserData.email,
+    const result = await User.save({
+      userName: newUserData.userName,
       hashedPassword: await argon2.hash(newUserData.password),
       resident,
+      role: newUserData.role,
     });
     console.log("result", result);
     return "ok";
@@ -44,7 +50,7 @@ class UserResolver {
   @Mutation(() => String)
   async login(@Arg("data") loginUserData: LoginUserInput, @Ctx() context: any) {
     let isPasswordOk = false;
-    const user = await User.findOneBy({ email: loginUserData.email });
+    const user = await User.findOneBy({ userName: loginUserData.userName });
     if (user) {
       isPasswordOk = await argon2.verify(
         user.hashedPassword,
@@ -53,7 +59,7 @@ class UserResolver {
     }
     if (isPasswordOk === true && user !== null) {
       const token = jwt.sign(
-        { email: user.email },
+        { userName: user.userName, role: user.role },
         process.env.JWT_SECRET_KEY as Secret
       );
       context.res.setHeader("Set-Cookie", `token=${token}; Secure; HttpOnly`);
@@ -74,8 +80,13 @@ class UserResolver {
 
   @Query(() => UserInfo)
   async getUserInfo(@Ctx() context: any) {
-    if (context.email) {
-      return { isLoggedIn: true, email: context.email, role: context.role };
+    if (context.userName) {
+      return {
+        isLoggedIn: true,
+        userName: context.userName,
+        role: context.role,
+        residentId: context.residentId,
+      };
     } else {
       return {
         isLoggedIn: false,
@@ -86,6 +97,15 @@ class UserResolver {
   @Query(() => [User])
   async getAllUsers() {
     return await User.find({ relations: ["resident"] });
+  }
+
+  @Query(() => User)
+  async getUserByUserName(@Arg("userName") userName: string) {
+    const user = await User.findOne({
+      where: { userName: userName },
+      relations: ["resident"],
+    });
+    return user;
   }
 }
 export default UserResolver;
