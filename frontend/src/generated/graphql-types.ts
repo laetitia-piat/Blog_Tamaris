@@ -90,6 +90,7 @@ export type Query = {
   getPostById: Post;
   getPostsByResidentId: Array<Post>;
   getResidentById: Resident;
+  getUserByUserName: User;
   getUserInfo: UserInfo;
 };
 
@@ -111,6 +112,11 @@ export type QueryGetPostsByResidentIdArgs = {
 
 export type QueryGetResidentByIdArgs = {
   id: Scalars['Float']['input'];
+};
+
+
+export type QueryGetUserByUserNameArgs = {
+  userName: Scalars['String']['input'];
 };
 
 export type Resident = {
@@ -138,8 +144,6 @@ export type User = {
 export type UserInfo = {
   __typename?: 'UserInfo';
   isLoggedIn: Scalars['Boolean']['output'];
-  resident?: Maybe<Resident>;
-  residentId?: Maybe<Scalars['Float']['output']>;
   role?: Maybe<Scalars['String']['output']>;
   userName?: Maybe<Scalars['String']['output']>;
 };
@@ -216,7 +220,14 @@ export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __ty
 export type GetUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUserInfoQuery = { __typename?: 'Query', getUserInfo: { __typename?: 'UserInfo', isLoggedIn: boolean, userName?: string | null, role?: string | null, residentId?: number | null, resident?: { __typename?: 'Resident', name: string } | null } };
+export type GetUserInfoQuery = { __typename?: 'Query', getUserInfo: { __typename?: 'UserInfo', isLoggedIn: boolean, userName?: string | null, role?: string | null } };
+
+export type GetUserByUserNameQueryVariables = Exact<{
+  userName: Scalars['String']['input'];
+}>;
+
+
+export type GetUserByUserNameQuery = { __typename?: 'Query', getUserByUserName: { __typename?: 'User', id: number, userName: string, role: string, resident: { __typename?: 'Resident', id: number, name: string } } };
 
 
 export const CreateNewPostDocument = gql`
@@ -642,10 +653,6 @@ export const GetUserInfoDocument = gql`
     isLoggedIn
     userName
     role
-    resident {
-      name
-    }
-    residentId
   }
 }
     `;
@@ -684,3 +691,52 @@ export type GetUserInfoQueryHookResult = ReturnType<typeof useGetUserInfoQuery>;
 export type GetUserInfoLazyQueryHookResult = ReturnType<typeof useGetUserInfoLazyQuery>;
 export type GetUserInfoSuspenseQueryHookResult = ReturnType<typeof useGetUserInfoSuspenseQuery>;
 export type GetUserInfoQueryResult = Apollo.QueryResult<GetUserInfoQuery, GetUserInfoQueryVariables>;
+export const GetUserByUserNameDocument = gql`
+    query GetUserByUserName($userName: String!) {
+  getUserByUserName(userName: $userName) {
+    id
+    userName
+    role
+    resident {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserByUserNameQuery__
+ *
+ * To run a query within a React component, call `useGetUserByUserNameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserByUserNameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserByUserNameQuery({
+ *   variables: {
+ *      userName: // value for 'userName'
+ *   },
+ * });
+ */
+export function useGetUserByUserNameQuery(baseOptions: Apollo.QueryHookOptions<GetUserByUserNameQuery, GetUserByUserNameQueryVariables> & ({ variables: GetUserByUserNameQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserByUserNameQuery, GetUserByUserNameQueryVariables>(GetUserByUserNameDocument, options);
+      }
+export function useGetUserByUserNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserByUserNameQuery, GetUserByUserNameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserByUserNameQuery, GetUserByUserNameQueryVariables>(GetUserByUserNameDocument, options);
+        }
+// @ts-ignore
+export function useGetUserByUserNameSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetUserByUserNameQuery, GetUserByUserNameQueryVariables>): Apollo.UseSuspenseQueryResult<GetUserByUserNameQuery, GetUserByUserNameQueryVariables>;
+export function useGetUserByUserNameSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserByUserNameQuery, GetUserByUserNameQueryVariables>): Apollo.UseSuspenseQueryResult<GetUserByUserNameQuery | undefined, GetUserByUserNameQueryVariables>;
+export function useGetUserByUserNameSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserByUserNameQuery, GetUserByUserNameQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetUserByUserNameQuery, GetUserByUserNameQueryVariables>(GetUserByUserNameDocument, options);
+        }
+export type GetUserByUserNameQueryHookResult = ReturnType<typeof useGetUserByUserNameQuery>;
+export type GetUserByUserNameLazyQueryHookResult = ReturnType<typeof useGetUserByUserNameLazyQuery>;
+export type GetUserByUserNameSuspenseQueryHookResult = ReturnType<typeof useGetUserByUserNameSuspenseQuery>;
+export type GetUserByUserNameQueryResult = Apollo.QueryResult<GetUserByUserNameQuery, GetUserByUserNameQueryVariables>;
