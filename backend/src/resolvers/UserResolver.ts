@@ -85,6 +85,7 @@ class UserResolver {
         isLoggedIn: true,
         userName: context.userName,
         role: context.role,
+        residentId: context.residentId,
       };
     } else {
       return {
@@ -96,6 +97,15 @@ class UserResolver {
   @Query(() => [User])
   async getAllUsers() {
     return await User.find({ relations: ["resident"] });
+  }
+
+  @Query(() => User)
+  async getUserByUserName(@Arg("userName") userName: string) {
+    const user = await User.findOne({
+      where: { userName: userName },
+      relations: ["resident"],
+    });
+    return user;
   }
 }
 export default UserResolver;

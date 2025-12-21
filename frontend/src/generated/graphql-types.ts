@@ -88,6 +88,8 @@ export type Query = {
   getAllUsers: Array<User>;
   getCommentById: Comment;
   getPostById: Post;
+  getPostsByResidentId: Array<Post>;
+  getResidentById: Resident;
   getUserInfo: UserInfo;
 };
 
@@ -98,6 +100,16 @@ export type QueryGetCommentByIdArgs = {
 
 
 export type QueryGetPostByIdArgs = {
+  id: Scalars['Float']['input'];
+};
+
+
+export type QueryGetPostsByResidentIdArgs = {
+  residentId: Scalars['Float']['input'];
+};
+
+
+export type QueryGetResidentByIdArgs = {
   id: Scalars['Float']['input'];
 };
 
@@ -126,6 +138,8 @@ export type User = {
 export type UserInfo = {
   __typename?: 'UserInfo';
   isLoggedIn: Scalars['Boolean']['output'];
+  resident?: Maybe<Resident>;
+  residentId?: Maybe<Scalars['Float']['output']>;
   role?: Maybe<Scalars['String']['output']>;
   userName?: Maybe<Scalars['String']['output']>;
 };
@@ -182,6 +196,13 @@ export type GetPostByIdQueryVariables = Exact<{
 
 export type GetPostByIdQuery = { __typename?: 'Query', getPostById: { __typename?: 'Post', id: number, titre: string, photo: string, residents?: Array<{ __typename?: 'Resident', id: number }> | null, comments?: Array<{ __typename?: 'Comment', id: number, content: string, auteur: string }> | null } };
 
+export type GetPostsByResidentIdQueryVariables = Exact<{
+  residentId: Scalars['Float']['input'];
+}>;
+
+
+export type GetPostsByResidentIdQuery = { __typename?: 'Query', getPostsByResidentId: Array<{ __typename?: 'Post', id: number, titre: string, photo: string, residents?: Array<{ __typename?: 'Resident', id: number, name: string }> | null, comments?: Array<{ __typename?: 'Comment', id: number, content: string, auteur: string }> | null }> };
+
 export type GetAllResidentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -195,7 +216,7 @@ export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __ty
 export type GetUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUserInfoQuery = { __typename?: 'Query', getUserInfo: { __typename?: 'UserInfo', isLoggedIn: boolean, userName?: string | null, role?: string | null } };
+export type GetUserInfoQuery = { __typename?: 'Query', getUserInfo: { __typename?: 'UserInfo', isLoggedIn: boolean, userName?: string | null, role?: string | null, residentId?: number | null, resident?: { __typename?: 'Resident', name: string } | null } };
 
 
 export const CreateNewPostDocument = gql`
@@ -471,6 +492,60 @@ export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
 export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
 export type GetPostByIdSuspenseQueryHookResult = ReturnType<typeof useGetPostByIdSuspenseQuery>;
 export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+export const GetPostsByResidentIdDocument = gql`
+    query GetPostsByResidentId($residentId: Float!) {
+  getPostsByResidentId(residentId: $residentId) {
+    id
+    residents {
+      id
+      name
+    }
+    titre
+    photo
+    comments {
+      id
+      content
+      auteur
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsByResidentIdQuery__
+ *
+ * To run a query within a React component, call `useGetPostsByResidentIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsByResidentIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsByResidentIdQuery({
+ *   variables: {
+ *      residentId: // value for 'residentId'
+ *   },
+ * });
+ */
+export function useGetPostsByResidentIdQuery(baseOptions: Apollo.QueryHookOptions<GetPostsByResidentIdQuery, GetPostsByResidentIdQueryVariables> & ({ variables: GetPostsByResidentIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsByResidentIdQuery, GetPostsByResidentIdQueryVariables>(GetPostsByResidentIdDocument, options);
+      }
+export function useGetPostsByResidentIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByResidentIdQuery, GetPostsByResidentIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsByResidentIdQuery, GetPostsByResidentIdQueryVariables>(GetPostsByResidentIdDocument, options);
+        }
+// @ts-ignore
+export function useGetPostsByResidentIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostsByResidentIdQuery, GetPostsByResidentIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetPostsByResidentIdQuery, GetPostsByResidentIdQueryVariables>;
+export function useGetPostsByResidentIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPostsByResidentIdQuery, GetPostsByResidentIdQueryVariables>): Apollo.UseSuspenseQueryResult<GetPostsByResidentIdQuery | undefined, GetPostsByResidentIdQueryVariables>;
+export function useGetPostsByResidentIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPostsByResidentIdQuery, GetPostsByResidentIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostsByResidentIdQuery, GetPostsByResidentIdQueryVariables>(GetPostsByResidentIdDocument, options);
+        }
+export type GetPostsByResidentIdQueryHookResult = ReturnType<typeof useGetPostsByResidentIdQuery>;
+export type GetPostsByResidentIdLazyQueryHookResult = ReturnType<typeof useGetPostsByResidentIdLazyQuery>;
+export type GetPostsByResidentIdSuspenseQueryHookResult = ReturnType<typeof useGetPostsByResidentIdSuspenseQuery>;
+export type GetPostsByResidentIdQueryResult = Apollo.QueryResult<GetPostsByResidentIdQuery, GetPostsByResidentIdQueryVariables>;
 export const GetAllResidentsDocument = gql`
     query GetAllResidents {
   getAllResidents {
@@ -567,6 +642,10 @@ export const GetUserInfoDocument = gql`
     isLoggedIn
     userName
     role
+    resident {
+      name
+    }
+    residentId
   }
 }
     `;

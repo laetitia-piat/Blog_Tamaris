@@ -37,6 +37,25 @@ export const GET_POST_BY_ID = gql`
   }
 `;
 
+export const GET_POSTS_BY_RESIDENT_ID = gql`
+  query GetPostsByResidentId($residentId: Float!) {
+    getPostsByResidentId(residentId: $residentId) {
+      id
+      residents {
+        id
+        name
+      }
+      titre
+      photo
+      comments {
+        id
+        content
+        auteur
+      }
+    }
+  }
+`;
+
 export const GET_ALL_RESIDENTS = gql`
   query GetAllResidents {
     getAllResidents {
@@ -46,7 +65,7 @@ export const GET_ALL_RESIDENTS = gql`
   }
 `;
 
-export const GELL_ALL_USERS = gql`
+export const GET_ALL_USERS = gql`
   query GetAllUsers {
     getAllUsers {
       id
@@ -65,6 +84,20 @@ export const GET_USER_INFOS = gql`
       isLoggedIn
       userName
       role
+    }
+  }
+`;
+
+export const GET_USER_BY_USERNAME = gql`
+  query GetUserByUserName($userName: String!) {
+    getUserByUserName(userName: $userName) {
+      id
+      userName
+      role
+      resident {
+        id
+        name
+      }
     }
   }
 `;
