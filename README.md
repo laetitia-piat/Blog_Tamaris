@@ -21,8 +21,11 @@ Le tout est pensé pour être **maintenable, scalable et déployable facilement*
 
 Blog_Tamaris/
 ├── backend/ # API et logique serveur
+
 ├── frontend/ # Application frontend
+
 ├── img/ # Images et ressources
+
 ├── .github/ # GitHub Actions / workflows
 ├── docker-compose.yml # Configuration Docker principale
 ├── docker-compose.prod.yml # Configuration production
