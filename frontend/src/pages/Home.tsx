@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "@fontsource/quicksand";
 import {
   LoginUserInput,
+  useGetUserByUserNameQuery,
   useGetUserInfoQuery,
   useLoginMutation,
 } from "../generated/graphql-types";
@@ -13,11 +14,16 @@ import AllPictures from "../components/AllPictures";
 
 const HomePage = () => {
   const userInfos = useGetUserInfoQuery();
+  const userName = userInfos.data?.getUserInfo.userName || "";
+
+  const user = useGetUserByUserNameQuery({ variables: { userName } });
+  const residentName = user.data?.getUserByUserName?.resident?.name;
+
   const navigate = useNavigate();
   const [login] = useLoginMutation({
     refetchQueries: [{ query: GET_USER_INFOS }],
   });
-  const [screenAllPictures, setScreenAllPictures] = useState(false);
+
   const [screenAllPicturesByResident, setcreenAllPicturesByResident] =
     useState(false);
   const {
@@ -47,15 +53,13 @@ const HomePage = () => {
             className="bg-[#4c7d48] p-2 rounded-2xl text-white"
             onClick={() => {
               setcreenAllPicturesByResident(true);
-              setScreenAllPictures(false);
             }}
           >
-            Photos
+            Photos de {residentName}
           </button>
           <button
             className="bg-[#4c7d48] p-2 rounded-2xl text-white"
             onClick={() => {
-              setScreenAllPictures(true);
               setcreenAllPicturesByResident(false);
             }}
           >
@@ -77,8 +81,8 @@ const HomePage = () => {
               </button>
             </Link>
           </div>
+          {!screenAllPicturesByResident ? <AllPictures /> : <></>}
           {screenAllPicturesByResident ? <AllPicturesByResident /> : <></>}
-          {screenAllPictures ? <AllPictures /> : <></>}
         </div>
       </>
     );

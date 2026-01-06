@@ -3,7 +3,7 @@ import PostCard from "./PostCard";
 
 const AllPictures = () => {
   const { loading, error, data } = useGetAllPostsQuery();
-
+  console.log(data?.getAllPosts);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
 
