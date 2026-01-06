@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const type_graphql_1 = require("type-graphql");
 const Resident_1 = require("../entities/Resident");
@@ -16,6 +19,10 @@ let ResidentResolver = class ResidentResolver {
         const residents = await Resident_1.Resident.find({});
         return residents;
     }
+    async getResidentById(id) {
+        const resident = await Resident_1.Resident.findOne({ where: { id } });
+        return resident;
+    }
 };
 __decorate([
     (0, type_graphql_1.Query)(() => [Resident_1.Resident]),
@@ -23,6 +30,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ResidentResolver.prototype, "getAllResidents", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => Resident_1.Resident),
+    __param(0, (0, type_graphql_1.Arg)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ResidentResolver.prototype, "getResidentById", null);
 ResidentResolver = __decorate([
     (0, type_graphql_1.Resolver)(Resident_1.Resident)
 ], ResidentResolver);
