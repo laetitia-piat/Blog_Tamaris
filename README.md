@@ -56,7 +56,9 @@ Blog_Tamaris/
 
 ### DevOps
 - Docker
-- Docker Compose
 - Nginx
+- Github Actions
 
+### Base de données
+- PostgreSQL
 ---
