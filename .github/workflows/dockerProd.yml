@@ -1,9 +1,9 @@
-name: build and push docker images
+name: build and push docker images on Prod
 
 on:
   pull_request:
     branches:
-      - production
+      - prod
 
 jobs:
   docker:
