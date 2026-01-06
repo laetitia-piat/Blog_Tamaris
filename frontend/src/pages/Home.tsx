@@ -2,17 +2,24 @@ import { Link, useNavigate } from "react-router-dom";
 import "@fontsource/quicksand";
 import {
   LoginUserInput,
+  useGetPostsByResidentIdLazyQuery,
+  useGetUserByUserNameQuery,
   useGetUserInfoQuery,
   useLoginMutation,
 } from "../generated/graphql-types";
 import { GET_USER_INFOS } from "../graphql/queries";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AllPicturesByResident from "../components/AllPicturesByResident";
 import AllPictures from "../components/AllPictures";
 
 const HomePage = () => {
   const userInfos = useGetUserInfoQuery();
+  const userName = userInfos.data?.getUserInfo.userName || "";
+
+  const user = useGetUserByUserNameQuery({ variables: { userName } });
+  const residentName = user.data?.getUserByUserName?.resident?.name;
+
   const navigate = useNavigate();
   const [login] = useLoginMutation({
     refetchQueries: [{ query: GET_USER_INFOS }],
@@ -50,7 +57,7 @@ const HomePage = () => {
               setScreenAllPictures(false);
             }}
           >
-            Photos
+            Photos de {residentName}
           </button>
           <button
             className="bg-[#4c7d48] p-2 rounded-2xl text-white"
@@ -77,8 +84,8 @@ const HomePage = () => {
               </button>
             </Link>
           </div>
+          {!screenAllPicturesByResident ? <AllPictures /> : <></>}
           {screenAllPicturesByResident ? <AllPicturesByResident /> : <></>}
-          {screenAllPictures ? <AllPictures /> : <></>}
         </div>
       </>
     );
