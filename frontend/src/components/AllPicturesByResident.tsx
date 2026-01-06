@@ -20,7 +20,7 @@ const AllPicturesByResident = () => {
     });
 
   useEffect(() => {
-    if (!residentId) return; // 👈 évite residentId = 0 / undefined
+    if (!residentId) return;
     getPostsByResidentId({ variables: { residentId } });
   }, [residentId, getPostsByResidentId]);
 
