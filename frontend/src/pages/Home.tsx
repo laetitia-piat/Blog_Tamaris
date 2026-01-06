@@ -23,7 +23,7 @@ const HomePage = () => {
   const [login] = useLoginMutation({
     refetchQueries: [{ query: GET_USER_INFOS }],
   });
-  const [screenAllPictures, setScreenAllPictures] = useState(false);
+
   const [screenAllPicturesByResident, setcreenAllPicturesByResident] =
     useState(false);
   const {
@@ -53,7 +53,6 @@ const HomePage = () => {
             className="bg-[#4c7d48] p-2 rounded-2xl text-white"
             onClick={() => {
               setcreenAllPicturesByResident(true);
-              setScreenAllPictures(false);
             }}
           >
             Photos de {residentName}
@@ -61,7 +60,6 @@ const HomePage = () => {
           <button
             className="bg-[#4c7d48] p-2 rounded-2xl text-white"
             onClick={() => {
-              setScreenAllPictures(true);
               setcreenAllPicturesByResident(false);
             }}
           >
