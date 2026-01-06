@@ -2,14 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import "@fontsource/quicksand";
 import {
   LoginUserInput,
-  useGetPostsByResidentIdLazyQuery,
   useGetUserByUserNameQuery,
   useGetUserInfoQuery,
   useLoginMutation,
 } from "../generated/graphql-types";
 import { GET_USER_INFOS } from "../graphql/queries";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import  useState } from "react";
 import AllPicturesByResident from "../components/AllPicturesByResident";
 import AllPictures from "../components/AllPictures";
 
