@@ -20,6 +20,7 @@ Le tout est pensé pour être **maintenable, scalable et déployable facilement*
 ## 📁 Structure du projet
 
 Blog_Tamaris/
+
 ├── backend/ # API et logique serveur
 
 ├── frontend/ # Application frontend
@@ -27,11 +28,17 @@ Blog_Tamaris/
 ├── img/ # Images et ressources
 
 ├── .github/ # GitHub Actions / workflows
+
 ├── docker-compose.yml # Configuration Docker principale
+
 ├── docker-compose.prod.yml # Configuration production
+
 ├── docker-compose.staging.yml # Configuration staging
+
 ├── nginx.conf # Configuration Nginx
+
 ├── .env # Variables d’environnement (non versionnées)
+
 └── README.md # Documentation du projet
 
 ---
