@@ -1,9 +1,9 @@
 name: build and push docker images
 
 on:
-  push:
+  pull_request:
     branches:
-      - prdocution
+      - production
 
 jobs:
   docker:
