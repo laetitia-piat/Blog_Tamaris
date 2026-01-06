@@ -1,18 +1,31 @@
 import { useEffect } from "react";
-import { useGetPostsByResidentIdLazyQuery } from "../generated/graphql-types";
+import {
+  useGetPostsByResidentIdLazyQuery,
+  useGetUserByUserNameQuery,
+  useGetUserInfoQuery,
+} from "../generated/graphql-types";
 import PostCard from "./PostCard";
 
 const AllPicturesByResident = () => {
+  const userInfos = useGetUserInfoQuery();
+  const userName = userInfos.data?.getUserInfo.userName || "";
+  const user = useGetUserByUserNameQuery({ variables: { userName } });
+  const residentId = user.data?.getUserByUserName?.resident?.id;
+
   const [getPostsByResidentId, { loading, error, data }] =
-    useGetPostsByResidentIdLazyQuery({ variables: { residentId: 2 } });
+    useGetPostsByResidentIdLazyQuery({
+      variables: {
+        residentId: user.data?.getUserByUserName?.resident?.id ?? 0,
+      },
+    });
 
   useEffect(() => {
-    getPostsByResidentId({ variables: { residentId: 2 } });
-  }, [getPostsByResidentId]);
+    if (!residentId) return; // 👈 évite residentId = 0 / undefined
+    getPostsByResidentId({ variables: { residentId } });
+  }, [residentId, getPostsByResidentId]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
-
   if (data) {
     return (
       <>
