@@ -1,7 +1,7 @@
 # 🏝️ Blog Tamaris
 
 **Blog Tamaris** est une application de blog moderne basée sur une architecture **frontend / backend**, entièrement conteneurisée avec **Docker**.  
-Ce projet a été développé par **Laetitia Piat** dans un objectif d’apprentissage et de mise en pratique de compétences full-stack.
+Ce projet a été développé par **Laetitia Piat** pour une foyer de vie regroupant des personnes traumatisées craniens. Ce blog a pour objectif de maintenir un lien entre les résidents et leur famille tout en préservant leur droit à l'image.
 
 ---
 
