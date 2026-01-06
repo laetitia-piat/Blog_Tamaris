@@ -8,7 +8,7 @@ import {
 } from "../generated/graphql-types";
 import { GET_USER_INFOS } from "../graphql/queries";
 import { SubmitHandler, useForm } from "react-hook-form";
-import  useState } from "react";
+import { useState } from "react";
 import AllPicturesByResident from "../components/AllPicturesByResident";
 import AllPictures from "../components/AllPictures";
 
