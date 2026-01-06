@@ -47,6 +47,7 @@ Blog_Tamaris/
 
 ### Backend
 - Node.js
+- GraphQL
 - API REST
 
 ### Frontend
