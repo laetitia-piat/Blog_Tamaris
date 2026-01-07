@@ -8,12 +8,15 @@ const ResidentAdmin = () => {
 
   return (
     <div>
-      <h1>Liste des résidents</h1>
-      <table className="min-w-[90%] w border-collapse border border-[#4c7d48] bg-[#f7f0e1]">
+      <h2 className="text-center text-2xl text-[#4c7d48] font-bold mt-10">
+        Liste des résidents
+      </h2>
+      <table className="min-w-[50%] m-auto w border-collapse border border-[#4c7d48] bg-[#f7f0e1]">
         <thead>
           <tr>
             <th className="border border-[#4c7d48] p-2">ID</th>
             <th className="border border-[#4c7d48] p-2">Résident</th>
+            <th className="border border-[#4c7d48] p-2">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -21,6 +24,7 @@ const ResidentAdmin = () => {
             <tr key={resident.id}>
               <td className="border border-[#4c7d48] p-2">{resident.id}</td>
               <td className="border border-[#4c7d48] p-2">{resident.name}</td>
+              <td className="border border-[#4c7d48] p-2"></td>
             </tr>
           ))}
         </tbody>
