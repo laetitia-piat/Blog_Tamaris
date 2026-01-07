@@ -1,4 +1,4 @@
-import { LoginUserInput, User, UserInput } from "../entities/User";
+import { User } from "../entities/User";
 import * as argon2 from "argon2";
 import jwt, { Secret } from "jsonwebtoken";
 import { Resident } from "../entities/Resident";
@@ -11,6 +11,12 @@ import {
   Query,
   Resolver,
 } from "type-graphql";
+import {
+  UserInput,
+  LoginUserInput,
+  DeleteUserInput,
+  UpdateUserInput,
+} from "../inputs/UserInput";
 
 @ObjectType()
 class UserInfo {
@@ -107,5 +113,61 @@ class UserResolver {
     });
     return user;
   }
+
+  @Mutation(() => String)
+  async deleteUser(@Arg("data") data: DeleteUserInput) {
+    const result = await User.delete(data.userId);
+    if (result.affected === 1) {
+      return "L'utilisateur a bien été supprimé";
+    }
+    throw new Error("L'utilisateur n'a pas été trouvé");
+  }
+
+  @Mutation(() => User)
+  async updateUser(@Arg("data") data: UpdateUserInput, @Ctx() context: any) {
+    if (context.role !== "ADMIN") {
+      throw new Error("Not authorized");
+    }
+
+    const user = await User.findOne({
+      where: { id: data.userId },
+      relations: ["resident"],
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    if (data.userName !== undefined) {
+      user.userName = data.userName;
+    }
+    if (data.role !== undefined) {
+      user.role = data.role;
+    }
+
+    // Password
+    if (data.password) {
+      user.hashedPassword = await argon2.hash(data.password);
+    }
+
+    // Resident
+    if (data.residentId !== undefined) {
+      if (data.residentId === null) {
+        user.resident = undefined;
+      } else {
+        const resident = await Resident.findOneBy({
+          id: data.residentId,
+        });
+        if (!resident) {
+          throw new Error("Resident not found");
+        }
+        user.resident = resident;
+      }
+    }
+
+    await user.save();
+    return user;
+  }
 }
+
 export default UserResolver;

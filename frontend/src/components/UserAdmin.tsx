@@ -1,8 +1,11 @@
-import { useGetAllUsersQuery } from "../generated/graphql-types";
+import {
+  useDeleteUserMutation,
+  useGetAllUsersQuery,
+} from "../generated/graphql-types";
 
 const userAdmin = () => {
   const { loading, error, data } = useGetAllUsersQuery();
-  console.log(data);
+  const [deleteUser] = useDeleteUserMutation();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
@@ -35,7 +38,12 @@ const userAdmin = () => {
                       className="w-4 h-4  lg:w-6 lg:h-6  m-auto"
                     />
                   </button>
-                  <button className=" hover:cursor-pointer">
+                  <button
+                    className=" hover:cursor-pointer"
+                    onClick={() =>
+                      deleteUser({ variables: { data: { userId: user.id } } })
+                    }
+                  >
                     <img
                       src="/images/corbeille.png"
                       alt="corbeille"
