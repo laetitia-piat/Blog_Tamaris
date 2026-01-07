@@ -2,11 +2,11 @@ import { useGetAllUsersQuery } from "../generated/graphql-types";
 
 const userAdmin = () => {
   const { loading, error, data } = useGetAllUsersQuery();
+  console.log(data);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
   if (data) {
-    console.log(data);
     return (
       <div className="w-[70%] m-auto">
         <h2 className="text-center text-2xl text-[#4c7d48] font-bold mt-10">

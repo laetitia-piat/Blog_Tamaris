@@ -136,7 +136,7 @@ export type User = {
   __typename?: 'User';
   hashedPassword: Scalars['String']['output'];
   id: Scalars['Float']['output'];
-  resident: Resident;
+  resident?: Maybe<Resident>;
   role: Scalars['String']['output'];
   userName: Scalars['String']['output'];
 };
@@ -215,7 +215,7 @@ export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Arra
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', id: number, userName: string, role: string, resident: { __typename?: 'Resident', name: string } }> };
+export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers: Array<{ __typename?: 'User', id: number, userName: string, role: string, resident?: { __typename?: 'Resident', name: string } | null }> };
 
 export type GetUserInfoQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -227,7 +227,7 @@ export type GetUserByUserNameQueryVariables = Exact<{
 }>;
 
 
-export type GetUserByUserNameQuery = { __typename?: 'Query', getUserByUserName: { __typename?: 'User', id: number, userName: string, role: string, resident: { __typename?: 'Resident', id: number, name: string } } };
+export type GetUserByUserNameQuery = { __typename?: 'Query', getUserByUserName: { __typename?: 'User', id: number, userName: string, role: string, resident?: { __typename?: 'Resident', id: number, name: string } | null } };
 
 
 export const CreateNewPostDocument = gql`

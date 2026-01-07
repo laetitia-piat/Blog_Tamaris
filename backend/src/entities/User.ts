@@ -24,7 +24,7 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   hashedPassword: string;
 
-  @Field(() => Resident)
+  @Field(() => Resident, { nullable: true })
   @ManyToOne(() => Resident, (resident) => resident.users, { nullable: true })
   @JoinColumn()
   resident?: Resident;
