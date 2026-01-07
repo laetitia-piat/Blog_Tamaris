@@ -16,7 +16,9 @@ const ResidentAdmin = () => {
           <tr>
             <th className="border border-[#4c7d48] p-2">ID</th>
             <th className="border border-[#4c7d48] p-2">Résident</th>
-            <th className="border border-[#4c7d48] p-2">Actions</th>
+            <th className="border border-[#4c7d48] p-2">Autorisation</th>
+            <th className="border border-[#4c7d48] p-2">Modifier</th>
+            <th className="border border-[#4c7d48] p-2">Supprimer</th>
           </tr>
         </thead>
         <tbody>
@@ -24,14 +26,19 @@ const ResidentAdmin = () => {
             <tr key={resident.id}>
               <td className="border border-[#4c7d48] p-2">{resident.id}</td>
               <td className="border border-[#4c7d48] p-2">{resident.name}</td>
-              <td className="border border-[#4c7d48] p-2 flex justify-evenly">
+              <td className="border border-[#4c7d48] p-2 text-center text-xl">
+                {resident.isPhotoSharingAllowed ? "✅" : "❌"}
+              </td>
+              <td className="border border-[#4c7d48] p-2 m-auto">
                 <button className=" hover:cursor-pointer">
                   <img
                     src="/images/pencil.png"
                     alt="pencil"
-                    className="w-4 h-4  lg:w-6 lg:h-6  m-auto"
+                    className="w-4 h-4 lg:w-6 lg:h-6"
                   />
-                </button>
+                </button>{" "}
+              </td>
+              <td className="border border-[#4c7d48] p-2">
                 <button className=" hover:cursor-pointer">
                   <img
                     src="/images/corbeille.png"

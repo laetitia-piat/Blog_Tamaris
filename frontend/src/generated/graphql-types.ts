@@ -248,7 +248,7 @@ export type GetPostsByResidentIdQuery = { __typename?: 'Query', getPostsByReside
 export type GetAllResidentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Array<{ __typename?: 'Resident', id: number, name: string }> };
+export type GetAllResidentsQuery = { __typename?: 'Query', getAllResidents: Array<{ __typename?: 'Resident', id: number, name: string, isPhotoSharingAllowed: boolean }> };
 
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -670,6 +670,7 @@ export const GetAllResidentsDocument = gql`
   getAllResidents {
     id
     name
+    isPhotoSharingAllowed
   }
 }
     `;

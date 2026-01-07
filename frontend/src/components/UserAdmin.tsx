@@ -21,7 +21,9 @@ const userAdmin = () => {
               <th className="border border-[#4c7d48] p-2">ID</th>
               <th className="border border-[#4c7d48] p-2">Nom d'utilisateur</th>
               <th className="border border-[#4c7d48] p-2">Rôle</th>
-              <th className="border border-[#4c7d48] p-2">Actions</th>
+              <th className="border border-[#4c7d48] p-2">Résident</th>
+              <th className="border border-[#4c7d48] p-2">Modifier</th>
+              <th className="border border-[#4c7d48] p-2">Supprimer</th>
             </tr>
           </thead>
           <tbody>
@@ -30,14 +32,20 @@ const userAdmin = () => {
                 <td className="border border-[#4c7d48] p-2">{user.id}</td>
                 <td className="border border-[#4c7d48] p-2">{user.userName}</td>
                 <td className="border border-[#4c7d48] p-2">{user.role}</td>
-                <td className="border border-[#4c7d48] p-2 flex justify-evenly">
+                <td className="border border-[#4c7d48] p-2">
+                  {" "}
+                  {user.resident ? user.resident.name : "Aucun"}{" "}
+                </td>
+                <td className="border border-[#4c7d48] p-2 m-auto">
                   <button className=" hover:cursor-pointer">
                     <img
                       src="/images/pencil.png"
                       alt="pencil"
-                      className="w-4 h-4  lg:w-6 lg:h-6  m-auto"
+                      className="w-4 h-4 lg:w-6 lg:h-6"
                     />
-                  </button>
+                  </button>{" "}
+                </td>
+                <td className="border border-[#4c7d48] p-2">
                   <button
                     className=" hover:cursor-pointer"
                     onClick={() =>
