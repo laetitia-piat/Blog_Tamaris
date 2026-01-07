@@ -24,7 +24,22 @@ const ResidentAdmin = () => {
             <tr key={resident.id}>
               <td className="border border-[#4c7d48] p-2">{resident.id}</td>
               <td className="border border-[#4c7d48] p-2">{resident.name}</td>
-              <td className="border border-[#4c7d48] p-2"></td>
+              <td className="border border-[#4c7d48] p-2 flex justify-evenly">
+                <button className=" hover:cursor-pointer">
+                  <img
+                    src="/images/pencil.png"
+                    alt="pencil"
+                    className="w-4 h-4  lg:w-6 lg:h-6  m-auto"
+                  />
+                </button>
+                <button className=" hover:cursor-pointer">
+                  <img
+                    src="/images/corbeille.png"
+                    alt="corbeille"
+                    className="w-4 h-4  lg:w-6 lg:h-6  m-auto"
+                  />
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
