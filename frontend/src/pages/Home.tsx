@@ -52,25 +52,26 @@ const HomePage = () => {
           <button
             className="bg-[#4c7d48] p-2 rounded-2xl text-white"
             onClick={() => {
-              setcreenAllPicturesByResident(true);
-            }}
-          >
-            Photos de {residentName}
-          </button>
-          <button
-            className="bg-[#4c7d48] p-2 rounded-2xl text-white"
-            onClick={() => {
               setcreenAllPicturesByResident(false);
             }}
           >
             Photos du foyer
           </button>
-          {userInfos.data?.getUserInfo.role === "SUPERADMIN" && (
+          {userInfos.data?.getUserInfo.role === "SUPERADMIN" ? (
             <Link to="/admin">
               <button className="bg-[#4c7d48] p-2 rounded-2xl text-white">
-                Gestion des utilisateurs
+                Admin
               </button>
             </Link>
+          ) : (
+            <button
+              className="bg-[#4c7d48] p-2 rounded-2xl text-white"
+              onClick={() => {
+                setcreenAllPicturesByResident(true);
+              }}
+            >
+              Photos de {residentName}
+            </button>
           )}
         </div>
         <div className="flex flex-col items-center w-[80%] m-auto h-screen ]">

@@ -12,7 +12,7 @@ const userAdmin = () => {
   if (data) {
     return (
       <div>
-        <h2 className="text-center text-2xl text-[#4c7d48] font-bold mt-10">
+        <h2 className="text-center text-2xl text-[#4c7d48] font-bold mt-10 mb-5">
           Liste des utilisateurs
         </h2>
         <table className="min-w-[50%] m-auto md:w-1/2 border-collapse border border-[#4c7d48] bg-[#f7f0e1]">
@@ -36,7 +36,7 @@ const userAdmin = () => {
                   {" "}
                   {user.resident ? user.resident.name : "Aucun"}{" "}
                 </td>
-                <td className="border border-[#4c7d48] p-2 m-auto">
+                <td className="border border-[#4c7d48] p-2 m-auto text-center">
                   <button className=" hover:cursor-pointer">
                     <img
                       src="/images/pencil.png"
@@ -45,7 +45,7 @@ const userAdmin = () => {
                     />
                   </button>{" "}
                 </td>
-                <td className="border border-[#4c7d48] p-2">
+                <td className="border border-[#4c7d48] p-2 text-center">
                   <button
                     className=" hover:cursor-pointer"
                     onClick={() =>

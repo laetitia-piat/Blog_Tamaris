@@ -8,7 +8,7 @@ const ResidentAdmin = () => {
 
   return (
     <div>
-      <h2 className="text-center text-2xl text-[#4c7d48] font-bold mt-10">
+      <h2 className="text-center text-2xl text-[#4c7d48] font-bold mt-10 mb-5">
         Liste des résidents
       </h2>
       <table className="min-w-[50%] m-auto w border-collapse border border-[#4c7d48] bg-[#f7f0e1]">
@@ -29,7 +29,7 @@ const ResidentAdmin = () => {
               <td className="border border-[#4c7d48] p-2 text-center text-xl">
                 {resident.isPhotoSharingAllowed ? "✅" : "❌"}
               </td>
-              <td className="border border-[#4c7d48] p-2 m-auto">
+              <td className="border border-[#4c7d48] p-2 text-center">
                 <button className=" hover:cursor-pointer">
                   <img
                     src="/images/pencil.png"
@@ -38,7 +38,7 @@ const ResidentAdmin = () => {
                   />
                 </button>{" "}
               </td>
-              <td className="border border-[#4c7d48] p-2">
+              <td className="border border-[#4c7d48] p-2 text-center">
                 <button className=" hover:cursor-pointer">
                   <img
                     src="/images/corbeille.png"
