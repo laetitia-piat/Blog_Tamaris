@@ -54,10 +54,10 @@ services:
       - 7000:80
   img:
     image: laetitia29/img:latest
+    volumes:
+      - ./img/uploads:/app/uploads
     healthcheck:
       test: "curl --fail --request GET --url 'http://localhost:4000' || exit 1"
       interval: 1s
       timeout: 2s
       retries: 100
-volumes:
-  postgres_data:

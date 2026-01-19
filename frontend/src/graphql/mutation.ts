@@ -42,3 +42,23 @@ export const REGISTER = gql`
     register(data: $data)
   }
 `;
+
+export const DELETE_USER = gql`
+  mutation DeleteUser($data: DeleteUserInput!) {
+    deleteUser(data: $data)
+  }
+`;
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser($data: UpdateUserInput!) {
+    updateUser(data: $data) {
+      id
+      userName
+      role
+      resident {
+        id
+        name
+      }
+    }
+  }
+`;

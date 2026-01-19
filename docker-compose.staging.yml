@@ -3,6 +3,8 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: example
+    volumes:
+      - postgres_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d postgres -U postgres"]
       interval: 1s
@@ -46,12 +48,18 @@ services:
         condition: service_healthy
       frontend:
         condition: service_healthy
+      img:
+        condition: service_healthy
     ports:
       - 7001:80
   img:
     image: laetitia29/img:latest
+    volumes:
+      - ./img/uploads:/app/uploads
     healthcheck:
       test: "curl --fail --request GET --url 'http://localhost:4000' || exit 1"
       interval: 1s
       timeout: 2s
       retries: 100
+volumes:
+  postgres_data:

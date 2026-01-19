@@ -26,12 +26,17 @@ __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Resident.prototype, "prenom", void 0);
+], Resident.prototype, "name", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => [Post_1.Post]),
     (0, typeorm_1.ManyToMany)(() => Post_1.Post, (post) => post.residents),
     __metadata("design:type", Array)
 ], Resident.prototype, "posts", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.Column)({ default: false }),
+    __metadata("design:type", Boolean)
+], Resident.prototype, "isPhotoSharingAllowed", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => [User_1.User]),
     (0, typeorm_1.OneToMany)(() => User_1.User, (user) => user.resident),

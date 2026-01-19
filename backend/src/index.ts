@@ -23,7 +23,7 @@ const start = async () => {
     resolvers: [PostResolver, CommentResolver, ResidentResolver, UserResolver],
     emitSchemaFile: true,
     authChecker: ({ context }) => {
-      if (context.email) {
+      if (context.userName) {
         return true;
       } else {
         return false;
@@ -48,8 +48,8 @@ const start = async () => {
           if (payload) {
             console.log("payload was found and returned to resolver");
             return {
-              email: payload.email,
-              userRole: payload.userRole,
+              userName: payload.userName,
+              role: payload.role,
               res: res,
             };
           }

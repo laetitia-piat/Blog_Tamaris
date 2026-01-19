@@ -16,12 +16,7 @@ const Header = () => {
   console.log(data);
   if (userInfos.data?.getUserInfo.isLoggedIn) {
     return (
-      <header
-        className="h-64 pr-5 pl-5 border-b-4 border-[#4c7d48]  w-screen bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/tamaris.png')",
-        }}
-      >
+      <header className="h-36 lg:h-48 pr-5 pl-5 w-screen ">
         <div className=" h-full flex flex-row justify-between items-center">
           <div className="w-1/5 ">
             <a href="/" className="">
@@ -29,11 +24,13 @@ const Header = () => {
             </a>
           </div>
           <div className="w-3/5 text-center">
-            <h1 className="text-5xl text-[#4c7d48] font-bold">TAMARIS BLOG</h1>
+            <h1 className="text-3xl lg:text-5xl text-[#4c7d48] font-bold">
+              TAMARIS BLOG
+            </h1>
           </div>
           <div className="flex flex-col w-1/5 items-end">
             <button
-              className="bg-[#4c7d48] w-1/2 p-3 rounded-full text-white "
+              className="bg-[#4c7d48] text-sm lg:text-lg lg:w-1/2 p-3 rounded-full text-white "
               onClick={() => {
                 logout();
               }}

@@ -25,7 +25,7 @@ __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], User.prototype, "userName", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.Column)({ nullable: true }),
@@ -52,14 +52,13 @@ exports.UserInput = UserInput;
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
-], UserInput.prototype, "email", void 0);
+], UserInput.prototype, "userName", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], UserInput.prototype, "password", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, type_graphql_1.Field)({ nullable: true }),
     __metadata("design:type", Number)
 ], UserInput.prototype, "residentId", void 0);
 __decorate([
@@ -76,7 +75,7 @@ exports.LoginUserInput = LoginUserInput;
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
-], LoginUserInput.prototype, "email", void 0);
+], LoginUserInput.prototype, "userName", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)

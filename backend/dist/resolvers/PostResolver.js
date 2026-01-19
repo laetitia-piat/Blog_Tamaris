@@ -25,6 +25,12 @@ let PostResolver = class PostResolver {
         const post = await Post_1.Post.findOneByOrFail({ id: id });
         return post;
     }
+    async getPostsByResidentId(residentId) {
+        return Post_1.Post.createQueryBuilder("post")
+            .innerJoinAndSelect("post.residents", "resident")
+            .where("resident.id = :residentId", { residentId })
+            .getMany();
+    }
     async createNewPost(newPOstData) {
         const newPostToSave = Post_1.Post.create(Object.assign({}, newPOstData));
         const result = await newPostToSave.save();
@@ -44,6 +50,13 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], PostResolver.prototype, "getPostById", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => [Post_1.Post]),
+    __param(0, (0, type_graphql_1.Arg)("residentId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], PostResolver.prototype, "getPostsByResidentId", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Post_1.Post),
     __param(0, (0, type_graphql_1.Arg)("data")),

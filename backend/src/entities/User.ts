@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Field, InputType, ObjectType } from "type-graphql";
+import { Field, ObjectType } from "type-graphql";
 import { Resident } from "./Resident";
 
 @ObjectType()
@@ -18,44 +18,18 @@ export class User extends BaseEntity {
 
   @Field()
   @Column({ nullable: true })
-  email: string;
+  userName: string;
 
   @Field()
   @Column({ nullable: true })
   hashedPassword: string;
 
-  @Field(() => Resident)
+  @Field(() => Resident, { nullable: true })
   @ManyToOne(() => Resident, (resident) => resident.users, { nullable: true })
   @JoinColumn()
-  resident: Resident;
+  resident?: Resident;
 
   @Field()
   @Column({ default: "USER" })
   role: string;
-}
-
-@InputType()
-export class UserInput implements Partial<User> {
-  @Field()
-  email: string;
-
-  @Field()
-  password: string;
-
-  @Field()
-  @Column({ nullable: true })
-  residentId?: number;
-
-  @Field()
-  @Column({ default: "USER" })
-  role: string;
-}
-
-@InputType()
-export class LoginUserInput implements Partial<User> {
-  @Field()
-  email: string;
-
-  @Field()
-  password: string;
 }
