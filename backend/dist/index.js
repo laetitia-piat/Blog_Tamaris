@@ -41,12 +41,9 @@ const server_1 = require("@apollo/server");
 const standalone_1 = require("@apollo/server/standalone");
 const db_1 = require("./config/db");
 const cookie = __importStar(require("cookie"));
-const PostResolver_1 = __importDefault(require("./resolvers/PostResolver"));
-const CommentResolver_1 = __importDefault(require("./resolvers/CommentResolver"));
 const type_graphql_1 = require("type-graphql");
-const ResidentResolver_1 = __importDefault(require("./resolvers/ResidentResolver"));
-const UserResolver_1 = __importDefault(require("./resolvers/UserResolver"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const Index_1 = require("./resolvers/Index");
 const start = async () => {
     if (process.env.JWT_SECRET_KEY === null ||
         process.env.JWT_SECRET_KEY === undefined) {
@@ -54,7 +51,7 @@ const start = async () => {
     }
     await db_1.dataSource.initialize();
     const schema = await (0, type_graphql_1.buildSchema)({
-        resolvers: [PostResolver_1.default, CommentResolver_1.default, ResidentResolver_1.default, UserResolver_1.default],
+        resolvers: Index_1.resolvers,
         emitSchemaFile: true,
         authChecker: ({ context }) => {
             if (context.userName) {

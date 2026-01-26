@@ -1,4 +1,9 @@
+import AllPictures from "../components/AllPictures";
+import AllPicturesByResident from "../components/AllPicturesByResident";
+import { GET_USER_INFOS } from "../graphql/queries";
 import { Link, useNavigate } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
 import "@fontsource/quicksand";
 import {
   LoginUserInput,
@@ -6,11 +11,6 @@ import {
   useGetUserInfoQuery,
   useLoginMutation,
 } from "../generated/graphql-types";
-import { GET_USER_INFOS } from "../graphql/queries";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
-import AllPicturesByResident from "../components/AllPicturesByResident";
-import AllPictures from "../components/AllPictures";
 
 const HomePage = () => {
   const userInfos = useGetUserInfoQuery();

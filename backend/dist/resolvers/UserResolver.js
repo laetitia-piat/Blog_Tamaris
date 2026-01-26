@@ -53,6 +53,7 @@ const argon2 = __importStar(require("argon2"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const Resident_1 = require("../entities/Resident");
 const type_graphql_1 = require("type-graphql");
+const UserInput_1 = require("../inputs/UserInput");
 let UserInfo = class UserInfo {
 };
 __decorate([
@@ -133,12 +134,56 @@ let UserResolver = class UserResolver {
         });
         return user;
     }
+    async deleteUser(data) {
+        const result = await User_1.User.delete(data.userId);
+        if (result.affected === 1) {
+            return "L'utilisateur a bien été supprimé";
+        }
+        throw new Error("L'utilisateur n'a pas été trouvé");
+    }
+    async updateUser(data, context) {
+        if (context.role !== "ADMIN") {
+            throw new Error("Not authorized");
+        }
+        const user = await User_1.User.findOne({
+            where: { id: data.userId },
+            relations: ["resident"],
+        });
+        if (!user) {
+            throw new Error("User not found");
+        }
+        if (data.userName !== undefined) {
+            user.userName = data.userName;
+        }
+        if (data.role !== undefined) {
+            user.role = data.role;
+        }
+        if (data.password) {
+            user.hashedPassword = await argon2.hash(data.password);
+        }
+        if (data.residentId !== undefined) {
+            if (data.residentId === null) {
+                user.resident = undefined;
+            }
+            else {
+                const resident = await Resident_1.Resident.findOneBy({
+                    id: data.residentId,
+                });
+                if (!resident) {
+                    throw new Error("Resident not found");
+                }
+                user.resident = resident;
+            }
+        }
+        await user.save();
+        return user;
+    }
 };
 __decorate([
     (0, type_graphql_1.Mutation)(() => String),
     __param(0, (0, type_graphql_1.Arg)("data")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [User_1.UserInput]),
+    __metadata("design:paramtypes", [UserInput_1.UserInput]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "register", null);
 __decorate([
@@ -146,7 +191,7 @@ __decorate([
     __param(0, (0, type_graphql_1.Arg)("data")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [User_1.LoginUserInput, Object]),
+    __metadata("design:paramtypes", [UserInput_1.LoginUserInput, Object]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "login", null);
 __decorate([
@@ -176,6 +221,21 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "getUserByUserName", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => String),
+    __param(0, (0, type_graphql_1.Arg)("data")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [UserInput_1.DeleteUserInput]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "deleteUser", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => User_1.User),
+    __param(0, (0, type_graphql_1.Arg)("data")),
+    __param(1, (0, type_graphql_1.Ctx)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [UserInput_1.UpdateUserInput, Object]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "updateUser", null);
 UserResolver = __decorate([
     (0, type_graphql_1.Resolver)(User_1.User)
 ], UserResolver);
