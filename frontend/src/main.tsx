@@ -5,7 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 
 import App from "./App.tsx";
 import "./index.css";
-import { apolloClient } from "./apollo/client.ts";
+import { apolloClient } from "./apollo/Client.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
