@@ -3,12 +3,9 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { dataSource } from "./config/db";
 import * as cookie from "cookie";
-import PostResolver from "./resolvers/PostResolver";
-import CommentResolver from "./resolvers/CommentResolver";
 import { buildSchema } from "type-graphql";
-import ResidentResolver from "./resolvers/ResidentResolver";
-import UserResolver from "./resolvers/UserResolver";
 import jwt, { Secret } from "jsonwebtoken";
+import { resolvers } from "./resolvers/Index";
 
 const start = async () => {
   if (
@@ -20,7 +17,7 @@ const start = async () => {
   await dataSource.initialize();
 
   const schema = await buildSchema({
-    resolvers: [PostResolver, CommentResolver, ResidentResolver, UserResolver],
+    resolvers,
     emitSchemaFile: true,
     authChecker: ({ context }) => {
       if (context.userName) {
@@ -42,7 +39,7 @@ const start = async () => {
         if (cookies.token !== undefined) {
           const payload: any = jwt.verify(
             cookies.token,
-            process.env.JWT_SECRET_KEY as Secret
+            process.env.JWT_SECRET_KEY as Secret,
           );
           console.log("payload in context", payload);
           if (payload) {
